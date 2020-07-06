@@ -40,30 +40,28 @@ class _StructureState extends State<Structure> {
           });
         },
       ),
-      appBar: _page == 0
-          ? AppBar(
-              title: Text('wolwo'),
-              backgroundColor: Colors.black,
-              actions: <Widget>[
-                Icon(
-                  Icons.favorite,
-                  color: Colors.pink,
-                  size: 24.0,
-                  semanticLabel: 'Text to announce in accessibility modes',
-                ),
-                Icon(
-                  Icons.audiotrack,
-                  color: Colors.green,
-                  size: 30.0,
-                ),
-                Icon(
-                  Icons.beach_access,
-                  color: Colors.pink,
-                  size: 25.0,
-                ),
-              ],
-            )
-          : null,
+      appBar: AppBar(
+        title: Text(_page==0?'wolwo':_page==1?'favs':_page==2?'about':_page==3?'user':null),
+        backgroundColor: Colors.black,
+        actions: <Widget>[
+          Icon(
+            Icons.favorite,
+            color: Colors.pink,
+            size: 24.0,
+            semanticLabel: 'Text to announce in accessibility modes',
+          ),
+          Icon(
+            Icons.audiotrack,
+            color: Colors.green,
+            size: 30.0,
+          ),
+          Icon(
+            Icons.beach_access,
+            color: Colors.pink,
+            size: 25.0,
+          ),
+        ],
+      ),
       floatingActionButton: _page == 0
           ? FloatingActionButton(
               focusColor: Colors.pink,
@@ -77,7 +75,11 @@ class _StructureState extends State<Structure> {
               backgroundColor: Colors.pink,
             )
           : null,
-      body: _page==0?Home():_page==1?Favourites():_page==2?About():_page==3?User():null,
+      body: _page == 0
+          ? Home()
+          : _page == 1
+              ? Favourites()
+              : _page == 2 ? About() : _page == 3 ? User() : null,
     );
   }
 }
