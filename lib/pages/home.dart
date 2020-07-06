@@ -11,22 +11,148 @@ class _HomeState extends State<Home> {
     return Container(
       color: Colors.grey[200],
       width: double.infinity,
-      // margin: EdgeInsets.all(10),
-      child: Column(
+      child: GridView.count(
+        crossAxisCount: 2,
         children: <Widget>[
           Container(
-            width: double.infinity,
-            height: 40,
-            padding: const EdgeInsets.all(8),
-            child: const Text('Home!'),
-            color: Colors.teal[200],
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
           ),
           Container(
-            width: double.infinity,
-            height: 40,
-            padding: const EdgeInsets.all(8),
-            child: const Text('Sound of screams but the'),
-            color: Colors.teal[300],
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
+          ),
+          Container(
+            child: Card(
+                color: Colors.blue,
+                child: Image.network(
+                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                  loadingBuilder: (context, child, progress) {
+                    return progress == null ? child : LinearProgressIndicator();
+                  },
+                )),
           ),
         ],
       ),
