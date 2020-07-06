@@ -9,7 +9,7 @@ class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      color: Colors.grey[200],
       width: double.infinity,
       // margin: EdgeInsets.all(10),
       child: Column(

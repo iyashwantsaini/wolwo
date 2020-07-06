@@ -24,28 +24,32 @@ class _StructureState extends State<Structure> {
         index: 0,
         height: 50.0,
         items: <Widget>[
-          Icon(Icons.home, size: 35.0, color: Colors.green),
+          Icon(
+            Icons.home,
+            size: 30.0,
+            color: Colors.green,
+          ),
           Icon(
             Icons.favorite,
-            size: 35.0,
+            size: 30.0,
             color: Colors.pink,
           ),
           Icon(
             Icons.person,
-            size: 35.0,
+            size: 30.0,
             color: Colors.purple,
           ),
           Icon(
             Icons.info,
-            size: 35.0,
+            size: 30.0,
             color: Colors.blue,
           ),
         ],
         color: Colors.white,
-        buttonBackgroundColor: Colors.white,
-        // backgroundColor: Colors.black,
-        animationCurve: Curves.easeInCirc,
-        animationDuration: Duration(milliseconds: 300),
+        // buttonBackgroundColor: Colors.white,
+        backgroundColor: Colors.grey[200],
+        // animationCurve: Curves.easeInCirc,
+        // animationDuration: Duration(milliseconds: 1000),
         onTap: (index) {
           setState(() {
             _page = index;
@@ -53,12 +57,19 @@ class _StructureState extends State<Structure> {
         },
       ),
       appBar: AppBar(
-        title: Text(_page == 0
-            ? 'wolwo'
-            : _page == 1
-                ? 'favs'
-                : _page == 2 ? 'about' : _page == 3 ? 'user' : null),
-        // backgroundColor: Colors.black,
+        title: Text(
+          _page == 0
+              ? 'wolwo'
+              : _page == 1
+                  ? 'favs'
+                  : _page == 2 ? 'about' : _page == 3 ? 'user' : null,
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+          ),
+        ),
+        backgroundColor: Colors.white,
         actions: <Widget>[
           InkWell(
             onTap: () => print("Container pressed"), // handle your onTap here
@@ -78,7 +89,7 @@ class _StructureState extends State<Structure> {
               child: Icon(
                 Icons.code,
                 color: Colors.pink,
-                size: 25.0,
+                size: 27.0,
               ),
             ),
           ),
@@ -89,7 +100,7 @@ class _StructureState extends State<Structure> {
               child: Icon(
                 Icons.comment,
                 color: Colors.green,
-                size: 30.0,
+                size: 24.0,
               ),
             ),
           ),
@@ -100,8 +111,8 @@ class _StructureState extends State<Structure> {
               onPressed: () {
                 // Add your onPressed code here!
               },
-              child: Icon(Icons.cached),
-              backgroundColor: Colors.cyan,
+              child: Icon(Icons.edit),
+              backgroundColor: Colors.blueGrey,
             )
           : null,
       body: _page == 0
