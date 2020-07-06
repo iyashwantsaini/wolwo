@@ -24,14 +24,14 @@ class _StructureState extends State<Structure> {
         index: 0,
         height: 50.0,
         items: <Widget>[
-          Icon(Icons.add, size: 30.0, color: Colors.black),
-          Icon(Icons.list, size: 30.0),
-          Icon(Icons.compare_arrows, size: 30.0),
-          Icon(Icons.call_split, size: 30.0),
+          Icon(Icons.home, size: 30.0, color: Colors.green),
+          Icon(Icons.favorite, size: 30.0,color: Colors.pink,),
+          Icon(Icons.person, size: 30.0,color: Colors.purple,),
+          Icon(Icons.info, size: 30.0,color: Colors.blue,),
         ],
         color: Colors.white,
         buttonBackgroundColor: Colors.white,
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 200),
         onTap: (index) {
@@ -42,32 +42,36 @@ class _StructureState extends State<Structure> {
       ),
       appBar: AppBar(
         title: Text(_page==0?'wolwo':_page==1?'favs':_page==2?'about':_page==3?'user':null),
-        backgroundColor: Colors.black,
+        // backgroundColor: Colors.black,
         actions: <Widget>[
-          Icon(
-            Icons.favorite,
-            color: Colors.pink,
-            size: 24.0,
-            semanticLabel: 'Text to announce in accessibility modes',
+          Container(
+            margin: EdgeInsets.all(6.0),
+            child: Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+            ),
           ),
-          Icon(
-            Icons.audiotrack,
-            color: Colors.green,
-            size: 30.0,
+          Container(
+            margin: EdgeInsets.all(6.0),
+            child: Icon(
+              Icons.comment,
+              color: Colors.green,
+              size: 30.0,
+            ),
           ),
-          Icon(
-            Icons.beach_access,
-            color: Colors.pink,
-            size: 25.0,
+          Container(
+            margin: EdgeInsets.all(6.0),
+            child: Icon(
+              Icons.code,
+              color: Colors.pink,
+              size: 25.0,
+            ),
           ),
         ],
       ),
       floatingActionButton: _page == 0
           ? FloatingActionButton(
-              focusColor: Colors.pink,
-              foregroundColor: Colors.indigo,
-              hoverColor: Colors.orange,
-              splashColor: Colors.green,
               onPressed: () {
                 // Add your onPressed code here!
               },
