@@ -24,16 +24,28 @@ class _StructureState extends State<Structure> {
         index: 0,
         height: 50.0,
         items: <Widget>[
-          Icon(Icons.home, size: 30.0, color: Colors.green),
-          Icon(Icons.favorite, size: 30.0,color: Colors.pink,),
-          Icon(Icons.person, size: 30.0,color: Colors.purple,),
-          Icon(Icons.info, size: 30.0,color: Colors.blue,),
+          Icon(Icons.home, size: 35.0, color: Colors.green),
+          Icon(
+            Icons.favorite,
+            size: 35.0,
+            color: Colors.pink,
+          ),
+          Icon(
+            Icons.person,
+            size: 35.0,
+            color: Colors.purple,
+          ),
+          Icon(
+            Icons.info,
+            size: 35.0,
+            color: Colors.blue,
+          ),
         ],
         color: Colors.white,
         buttonBackgroundColor: Colors.white,
         // backgroundColor: Colors.black,
-        animationCurve: Curves.easeInOut,
-        animationDuration: Duration(milliseconds: 200),
+        animationCurve: Curves.easeInCirc,
+        animationDuration: Duration(milliseconds: 300),
         onTap: (index) {
           setState(() {
             _page = index;
@@ -41,31 +53,44 @@ class _StructureState extends State<Structure> {
         },
       ),
       appBar: AppBar(
-        title: Text(_page==0?'wolwo':_page==1?'favs':_page==2?'about':_page==3?'user':null),
+        title: Text(_page == 0
+            ? 'wolwo'
+            : _page == 1
+                ? 'favs'
+                : _page == 2 ? 'about' : _page == 3 ? 'user' : null),
         // backgroundColor: Colors.black,
         actions: <Widget>[
-          Container(
-            margin: EdgeInsets.all(6.0),
-            child: Icon(
-              Icons.favorite,
-              color: Colors.pink,
-              size: 24.0,
+          InkWell(
+            onTap: () => print("Container pressed"), // handle your onTap here
+            child: Container(
+              padding: EdgeInsets.all(6.0),
+              child: Icon(
+                Icons.favorite,
+                color: Colors.pink,
+                size: 24.0,
+              ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(6.0),
-            child: Icon(
-              Icons.comment,
-              color: Colors.green,
-              size: 30.0,
+          InkWell(
+            onTap: () => print("Container pressed"), // handle your onTap here
+            child: Container(
+              padding: EdgeInsets.all(6.0),
+              child: Icon(
+                Icons.code,
+                color: Colors.pink,
+                size: 25.0,
+              ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(6.0),
-            child: Icon(
-              Icons.code,
-              color: Colors.pink,
-              size: 25.0,
+          InkWell(
+            onTap: () => print("Container pressed"), // handle your onTap here
+            child: Container(
+              padding: EdgeInsets.all(6.0),
+              child: Icon(
+                Icons.comment,
+                color: Colors.green,
+                size: 30.0,
+              ),
             ),
           ),
         ],
@@ -75,8 +100,8 @@ class _StructureState extends State<Structure> {
               onPressed: () {
                 // Add your onPressed code here!
               },
-              child: Icon(Icons.navigation),
-              backgroundColor: Colors.pink,
+              child: Icon(Icons.cached),
+              backgroundColor: Colors.cyan,
             )
           : null,
       body: _page == 0
