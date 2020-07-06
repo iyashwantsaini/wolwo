@@ -68,7 +68,9 @@ class _StructureState extends State<Structure> {
               ? 'wolwo'
               : _page == 1
                   ? 'collections'
-                  : _page == 2 ? 'favs' : _page == 3 ? 'user' : _page==4?'about':null,
+                  : _page == 2
+                      ? 'favs'
+                      : _page == 3 ? 'user' : _page == 4 ? 'about' : null,
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -108,14 +110,15 @@ class _StructureState extends State<Structure> {
                 // Add your onPressed code here!
               },
               child: Icon(Icons.format_paint),
-              backgroundColor: Colors.pink[600]
-            )
+              backgroundColor: Colors.pink[600])
           : null,
       body: _page == 0
           ? Home()
           : _page == 1
               ? Collections()
-              : _page == 2 ? Favourites() : _page == 3 ? User() : _page==4?About():null,
+              : _page == 2
+                  ? Favourites()
+                  : _page == 3 ? User() : _page == 4 ? About() : null,
     );
   }
 }
