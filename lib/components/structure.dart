@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:wolwo/pages/collections.dart';
 
 import 'package:wolwo/pages/home.dart';
 import 'package:wolwo/pages/about.dart';
@@ -25,9 +26,14 @@ class _StructureState extends State<Structure> {
         height: 50.0,
         items: <Widget>[
           Icon(
-            Icons.home,
+            Icons.view_carousel,
             size: 30.0,
             color: Colors.green,
+          ),
+          Icon(
+            Icons.view_day,
+            size: 30.0,
+            color: Colors.pink,
           ),
           Icon(
             Icons.favorite,
@@ -35,7 +41,7 @@ class _StructureState extends State<Structure> {
             color: Colors.pink,
           ),
           Icon(
-            Icons.person,
+            Icons.face,
             size: 30.0,
             color: Colors.purple,
           ),
@@ -61,8 +67,8 @@ class _StructureState extends State<Structure> {
           _page == 0
               ? 'wolwo'
               : _page == 1
-                  ? 'favs'
-                  : _page == 2 ? 'about' : _page == 3 ? 'user' : null,
+                  ? 'collections'
+                  : _page == 2 ? 'favs' : _page == 3 ? 'user' : _page==4?'about':null,
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -85,22 +91,11 @@ class _StructureState extends State<Structure> {
           InkWell(
             onTap: () => print("Container pressed"), // handle your onTap here
             child: Container(
-              padding: EdgeInsets.all(6.0),
+              padding: EdgeInsets.all(10.0),
               child: Icon(
                 Icons.code,
                 color: Colors.pink,
-                size: 27.0,
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () => print("Container pressed"), // handle your onTap here
-            child: Container(
-              padding: EdgeInsets.all(6.0),
-              child: Icon(
-                Icons.comment,
-                color: Colors.green,
-                size: 24.0,
+                size: 35.0,
               ),
             ),
           ),
@@ -111,15 +106,15 @@ class _StructureState extends State<Structure> {
               onPressed: () {
                 // Add your onPressed code here!
               },
-              child: Icon(Icons.edit),
-              backgroundColor: Colors.blueGrey,
+              child: Icon(Icons.format_paint),
+              backgroundColor: Colors.pink[600]
             )
           : null,
       body: _page == 0
           ? Home()
           : _page == 1
-              ? Favourites()
-              : _page == 2 ? About() : _page == 3 ? User() : null,
+              ? Collections()
+              : _page == 2 ? Favourites() : _page == 3 ? User() : _page==4?About():null,
     );
   }
 }

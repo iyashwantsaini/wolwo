@@ -18,7 +18,7 @@ class _AboutState extends State<About> {
             width: double.infinity,
             height: 40,
             padding: const EdgeInsets.all(8),
-            child: const Text('Home!'),
+            child: const Text('About!'),
             color: Colors.teal[200],
           ),
           Container(

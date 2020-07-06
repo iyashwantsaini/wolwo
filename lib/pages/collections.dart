@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class User extends StatefulWidget {
+class Collections extends StatefulWidget {
   @override
-  _UserState createState() => _UserState();
+  _CollectionsState createState() => _CollectionsState();
 }
 
-class _UserState extends State<User> {
+class _CollectionsState extends State<Collections> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +18,7 @@ class _UserState extends State<User> {
             width: double.infinity,
             height: 40,
             padding: const EdgeInsets.all(8),
-            child: const Text('User!'),
+            child: const Text('Collections!'),
             color: Colors.teal[200],
           ),
           Container(

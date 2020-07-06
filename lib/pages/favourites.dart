@@ -18,7 +18,7 @@ class _FavouritesState extends State<Favourites> {
             width: double.infinity,
             height: 40,
             padding: const EdgeInsets.all(8),
-            child: const Text('Home!'),
+            child: const Text('Favourites!'),
             color: Colors.teal[200],
           ),
           Container(
