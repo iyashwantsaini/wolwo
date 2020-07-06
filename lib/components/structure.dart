@@ -23,39 +23,49 @@ class _StructureState extends State<Structure> {
         key: _StructureigationKey,
         // start app by this index
         index: 0,
-        height: 50.0,
+        height: 55.0,
         items: <Widget>[
-          Icon(
-            Icons.view_carousel,
-            size: 30.0,
-            color: Colors.green,
+          Container(
+            child: Icon(
+              Icons.view_carousel,
+              size: 32.0,
+              color: Colors.green,
+            ),
           ),
-          Icon(
-            Icons.view_day,
-            size: 30.0,
-            color: Colors.deepOrange,
+          Container(
+            child: Icon(
+              Icons.view_day,
+              size: 32.0,
+              color: Colors.deepOrange,
+            ),
           ),
-          Icon(
-            Icons.favorite,
-            size: 30.0,
-            color: Colors.pink,
+          Container(
+            child: Icon(
+              Icons.favorite,
+              size: 32.0,
+              color: Colors.pink,
+            ),
           ),
-          Icon(
-            Icons.face,
-            size: 30.0,
-            color: Colors.purple,
+          Container(
+            child: Icon(
+              Icons.face,
+              size: 32.0,
+              color: Colors.purple,
+            ),
           ),
-          Icon(
-            Icons.info,
-            size: 30.0,
-            color: Colors.blue,
+          Container(
+            child: Icon(
+              Icons.info,
+              size: 32.0,
+              color: Colors.blue,
+            ),
           ),
         ],
-        color: Colors.white,
-        // buttonBackgroundColor: Colors.white,
-        backgroundColor: Colors.grey[200],
-        // animationCurve: Curves.easeInCirc,
-        // animationDuration: Duration(milliseconds: 1000),
+        color: Colors.grey[200],
+        buttonBackgroundColor: Colors.white.withOpacity(1),
+        backgroundColor: Colors.grey[200].withOpacity(0),
+        animationCurve: Curves.linear,
+        animationDuration: Duration(milliseconds: 500),
         onTap: (index) {
           setState(() {
             _page = index;
@@ -63,6 +73,7 @@ class _StructureState extends State<Structure> {
         },
       ),
       appBar: AppBar(
+        elevation: 0.0,
         title: Text(
           _page == 0
               ? 'wolwo'
