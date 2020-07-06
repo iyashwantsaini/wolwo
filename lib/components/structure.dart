@@ -61,9 +61,9 @@ class _StructureState extends State<Structure> {
             ),
           ),
         ],
-        color: Colors.grey[200],
+        color: Colors.grey[300],
         buttonBackgroundColor: Colors.white.withOpacity(1),
-        backgroundColor: Colors.grey[200].withOpacity(0),
+        backgroundColor: Colors.grey[200],
         animationCurve: Curves.linear,
         animationDuration: Duration(milliseconds: 500),
         onTap: (index) {
