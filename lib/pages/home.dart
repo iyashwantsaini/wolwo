@@ -16,105 +16,115 @@ class _HomeState extends State<Home> {
         crossAxisCount: 2,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
           Container(
-            padding: EdgeInsets.all(2.0),
-            child: Card(
+              padding: EdgeInsets.all(3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
                   loadingBuilder: (context, child, progress) {
                     return progress == null ? child : LinearProgressIndicator();
                   },
-                )),
-          ),
+                ),
+              )),
         ],
       ),
     );

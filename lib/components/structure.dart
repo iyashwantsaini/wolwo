@@ -33,7 +33,7 @@ class _StructureState extends State<Structure> {
           Icon(
             Icons.view_day,
             size: 30.0,
-            color: Colors.pink,
+            color: Colors.deepOrange,
           ),
           Icon(
             Icons.favorite,
@@ -97,7 +97,7 @@ class _StructureState extends State<Structure> {
               padding: EdgeInsets.all(10.0),
               child: Icon(
                 Icons.code,
-                color: Colors.pink,
+                color: Colors.blue,
                 size: 35.0,
               ),
             ),
