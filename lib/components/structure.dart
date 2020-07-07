@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:random_color/random_color.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
 
+import '../transition/slidetransition.dart';
+
+import '../pages/subpages/colorwall.dart';
 
 import 'package:wolwo/pages/collections.dart';
 import 'package:wolwo/pages/home.dart';
@@ -17,6 +23,15 @@ class Structure extends StatefulWidget {
 class _StructureState extends State<Structure> {
   int _page = 0;
   GlobalKey _StructureigationKey = GlobalKey();
+
+
+_launchURL( String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -82,19 +97,20 @@ class _StructureState extends State<Structure> {
               : _page == 1
                   ? 'collections'
                   : _page == 2
-                      ? 'favs'
+                      ? 'favourites'
                       : _page == 3 ? 'user' : _page == 4 ? 'about' : null,
-          style: TextStyle(
+          style: GoogleFonts.hammersmithOne(
+            textStyle: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 25,
-            // fontFamily: 'SF Pro Display'
+          ),
           ),
         ),
         backgroundColor: Colors.white,
         actions: <Widget>[
           InkWell(
-            onTap: () => print("Container pressed"), // handle your onTap here
+            onTap: () => _launchURL("https://meyash.xyz/"),  // handle your onTap here
             child: Container(
               padding: EdgeInsets.all(6.0),
               child: Icon(
@@ -105,7 +121,7 @@ class _StructureState extends State<Structure> {
             ),
           ),
           InkWell(
-            onTap: () => print("Container pressed"), // handle your onTap here
+            onTap: () => _launchURL("https://github.com/meyash"), // handle your onTap here
             child: Container(
               padding: EdgeInsets.all(10.0),
               child: Icon(
@@ -119,9 +135,12 @@ class _StructureState extends State<Structure> {
       ),
       floatingActionButton: _page == 0
           ? FloatingActionButton(
-              onPressed: () {
-                // Add your onPressed code here!
-              },
+              onPressed: () => {
+                    Future.delayed(const Duration(milliseconds: 200), () {
+                      Navigator.push(
+                          context, SlideLeftRoute(page: ColorWall()));
+                    }),
+                  },
               child: Icon(Icons.color_lens),
               backgroundColor: Colors.pink[600])
           : null,

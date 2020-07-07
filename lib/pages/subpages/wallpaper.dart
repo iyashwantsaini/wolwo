@@ -8,12 +8,38 @@ class SelectedWall extends StatefulWidget {
 class _SelectedWallState extends State<SelectedWall> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue,
-      body: Center(
-        child: RaisedButton(
-          child: Text('ScaleTransition'),
-          onPressed: () => Navigator.pop(context),
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0.0,
+          title: Text('',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+            ),
+          ),
+          backgroundColor: Colors.white,
+          actions: <Widget>[
+            InkWell(
+              onTap: () => Navigator.pop(context), // handle your onTap here
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.cancel,
+                  color: Colors.blue,
+                  size: 30.0,
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: Center(
+          child: RaisedButton(
+            child: Text('SELECTEDWALL'),
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
       ),
     );
