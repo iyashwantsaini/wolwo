@@ -12,14 +12,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<int> images = [1, 2, 3, 4, 5, 6];
-
   @override
   Widget build(BuildContext context) {
     // used to set size of each image view element
     var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
-    final double itemWidth = size.width / 2;
+    final double itemHeight = 344;
+    // print(itemHeight);
+    final double itemWidth = 196;
+    // print(itemWidth);
 
     return Container(
       padding: EdgeInsets.fromLTRB(2, 6, 2, 2),
