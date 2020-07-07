@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
 
+import '../transition/scaletrans.dart';
+
 import './subpages/wallpaper.dart';
 
 RandomColor _randomColor = RandomColor();
@@ -65,7 +67,8 @@ class _HomeState extends State<Home> {
                             child: new InkWell(
                               splashColor: _randomColor.randomColor(
                                   colorBrightness: ColorBrightness.light),
-                              onTap: () => print('hello'),
+                              onTap: () => Navigator.push(
+                                context,ScaleRoute(page: SelectedWall())),
                             ))),
                     new Positioned(
                       right: 10.0,
@@ -108,7 +111,8 @@ class _HomeState extends State<Home> {
                             child: new InkWell(
                               splashColor: _randomColor.randomColor(
                                   colorBrightness: ColorBrightness.light),
-                              onTap: () => print('hello'),
+                              onTap: () => Navigator.push(
+                                context,ScaleRoute(page: SelectedWall())),
                             ))),
                     new Positioned(
                       right: 10.0,
@@ -121,7 +125,7 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 )),
-                Container(
+            Container(
                 margin: EdgeInsets.all(3.0),
                 child: new Stack(
                   children: <Widget>[
@@ -151,7 +155,8 @@ class _HomeState extends State<Home> {
                             child: new InkWell(
                               splashColor: _randomColor.randomColor(
                                   colorBrightness: ColorBrightness.light),
-                              onTap: () => print('hello'),
+                              onTap: () => Navigator.push(
+                                context,ScaleRoute(page: SelectedWall())),
                             ))),
                     new Positioned(
                       right: 10.0,
@@ -164,7 +169,7 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 )),
-                Container(
+            Container(
                 margin: EdgeInsets.all(3.0),
                 child: new Stack(
                   children: <Widget>[
@@ -194,7 +199,8 @@ class _HomeState extends State<Home> {
                             child: new InkWell(
                               splashColor: _randomColor.randomColor(
                                   colorBrightness: ColorBrightness.light),
-                              onTap: () => print('hello'),
+                              onTap: () => Navigator.push(
+                                context,ScaleRoute(page: SelectedWall())),
                             ))),
                     new Positioned(
                       right: 10.0,

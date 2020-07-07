@@ -8,8 +8,14 @@ class SelectedWall extends StatefulWidget {
 class _SelectedWallState extends State<SelectedWall> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Wall!'),
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      body: Center(
+        child: RaisedButton(
+          child: Text('ScaleTransition'),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
     );
   }
 }
