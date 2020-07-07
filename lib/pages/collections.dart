@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../transition/scaletrans.dart';
 
 import './subpages/category.dart';
@@ -69,6 +70,20 @@ class _CollectionsState extends State<Collections> {
                                 }),
                               },
                             ))),
+                    new Positioned(
+                      right: 10.0,
+                      bottom: 10.0,
+                      child: new Text(
+                        'Technology',
+                        style: GoogleFonts.hammersmithOne(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 )),
             Container(
@@ -113,6 +128,20 @@ class _CollectionsState extends State<Collections> {
                                 }),
                               },
                             ))),
+                    new Positioned(
+                      right: 10.0,
+                      bottom: 10.0,
+                      child: new Text(
+                        'Science',
+                        style: GoogleFonts.hammersmithOne(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 )),
             Container(
@@ -157,6 +186,20 @@ class _CollectionsState extends State<Collections> {
                                 }),
                               },
                             ))),
+                    new Positioned(
+                      right: 10.0,
+                      bottom: 10.0,
+                      child: new Text(
+                        'Art',
+                        style: GoogleFonts.hammersmithOne(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 )),
             Container(
@@ -201,6 +244,20 @@ class _CollectionsState extends State<Collections> {
                                 }),
                               },
                             ))),
+                    new Positioned(
+                      right: 15.0,
+                      bottom: 10.0,
+                      child: new Text(
+                        'Food',
+                        style: GoogleFonts.hammersmithOne(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 )),
           ],
