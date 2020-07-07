@@ -122,7 +122,7 @@ class _StructureState extends State<Structure> {
               onPressed: () {
                 // Add your onPressed code here!
               },
-              child: Icon(Icons.format_paint),
+              child: Icon(Icons.color_lens),
               backgroundColor: Colors.pink[600])
           : null,
       body: _page == 0
