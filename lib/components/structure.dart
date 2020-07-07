@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:wolwo/pages/collections.dart';
+import 'package:random_color/random_color.dart';
 
+
+import 'package:wolwo/pages/collections.dart';
 import 'package:wolwo/pages/home.dart';
 import 'package:wolwo/pages/about.dart';
 import 'package:wolwo/pages/favourites.dart';
@@ -64,8 +66,8 @@ class _StructureState extends State<Structure> {
         color: Colors.grey[300],
         buttonBackgroundColor: Colors.white.withOpacity(1),
         backgroundColor: Colors.grey[200],
-        animationCurve: Curves.linear,
-        animationDuration: Duration(milliseconds: 500),
+        animationCurve: Curves.fastOutSlowIn,
+        animationDuration: Duration(milliseconds: 250),
         onTap: (index) {
           setState(() {
             _page = index;
