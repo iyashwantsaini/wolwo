@@ -68,8 +68,12 @@ class _FavouritesState extends State<Favourites> {
                               onTap: () => {
                                 Future.delayed(
                                     const Duration(milliseconds: 200), () {
-                                  Navigator.push(context,
-                                      ScaleRoute(page: SelectedWall()));
+                                  Navigator.push(
+                                      context,
+                                      ScaleRoute(
+                                          page: SelectedWall(
+                                              url:
+                                                  "https://wallpaperaccess.com/full/1559285.jpg")));
                                 }),
                               },
                             ))),
@@ -117,8 +121,12 @@ class _FavouritesState extends State<Favourites> {
                               onTap: () => {
                                 Future.delayed(
                                     const Duration(milliseconds: 200), () {
-                                  Navigator.push(context,
-                                      ScaleRoute(page: SelectedWall()));
+                                  Navigator.push(
+                                      context,
+                                      ScaleRoute(
+                                          page: SelectedWall(
+                                              url:
+                                                  "https://wallpaperaccess.com/full/1559285.jpg")));
                                 }),
                               },
                             ))),
@@ -133,7 +141,7 @@ class _FavouritesState extends State<Favourites> {
                     ),
                   ],
                 )),
-                Container(
+            Container(
                 margin: EdgeInsets.all(3.0),
                 child: new Stack(
                   children: <Widget>[
@@ -166,8 +174,12 @@ class _FavouritesState extends State<Favourites> {
                               onTap: () => {
                                 Future.delayed(
                                     const Duration(milliseconds: 200), () {
-                                  Navigator.push(context,
-                                      ScaleRoute(page: SelectedWall()));
+                                  Navigator.push(
+                                      context,
+                                      ScaleRoute(
+                                          page: SelectedWall(
+                                              url:
+                                                  "https://wallpaperaccess.com/full/1559285.jpg")));
                                 }),
                               },
                             ))),
@@ -182,7 +194,7 @@ class _FavouritesState extends State<Favourites> {
                     ),
                   ],
                 )),
-                Container(
+            Container(
                 margin: EdgeInsets.all(3.0),
                 child: new Stack(
                   children: <Widget>[
@@ -215,8 +227,12 @@ class _FavouritesState extends State<Favourites> {
                               onTap: () => {
                                 Future.delayed(
                                     const Duration(milliseconds: 200), () {
-                                  Navigator.push(context,
-                                      ScaleRoute(page: SelectedWall()));
+                                  Navigator.push(
+                                      context,
+                                      ScaleRoute(
+                                          page: SelectedWall(
+                                              url:
+                                                  "https://wallpaperaccess.com/full/1559285.jpg")));
                                 }),
                               },
                             ))),

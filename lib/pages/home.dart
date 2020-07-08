@@ -69,8 +69,12 @@ class _HomeState extends State<Home> {
                               onTap: () => {
                                 Future.delayed(
                                     const Duration(milliseconds: 200), () {
-                                  Navigator.push(context,
-                                      ScaleRoute(page: SelectedWall()));
+                                  Navigator.push(
+                                      context,
+                                      ScaleRoute(
+                                          page: SelectedWall(
+                                              url:
+                                                  'https://wallpaperaccess.com/full/1559285.jpg')));
                                 }),
                               },
                             ))),
@@ -118,8 +122,12 @@ class _HomeState extends State<Home> {
                               onTap: () => {
                                 Future.delayed(
                                     const Duration(milliseconds: 200), () {
-                                  Navigator.push(context,
-                                      ScaleRoute(page: SelectedWall()));
+                                  Navigator.push(
+                                      context,
+                                      ScaleRoute(
+                                          page: SelectedWall(
+                                              url:
+                                                  'https://wallpaperaccess.com/full/1559285.jpg')));
                                 }),
                               },
                             ))),
@@ -167,8 +175,12 @@ class _HomeState extends State<Home> {
                               onTap: () => {
                                 Future.delayed(
                                     const Duration(milliseconds: 200), () {
-                                  Navigator.push(context,
-                                      ScaleRoute(page: SelectedWall()));
+                                  Navigator.push(
+                                      context,
+                                      ScaleRoute(
+                                          page: SelectedWall(
+                                              url:
+                                                  'https://wallpaperaccess.com/full/1559285.jpg')));
                                 }),
                               },
                             ))),
@@ -216,8 +228,12 @@ class _HomeState extends State<Home> {
                               onTap: () => {
                                 Future.delayed(
                                     const Duration(milliseconds: 200), () {
-                                  Navigator.push(context,
-                                      ScaleRoute(page: SelectedWall()));
+                                  Navigator.push(
+                                      context,
+                                      ScaleRoute(
+                                          page: SelectedWall(
+                                              url:
+                                                  'https://wallpaperaccess.com/full/1559285.jpg')));
                                 }),
                               },
                             ))),
