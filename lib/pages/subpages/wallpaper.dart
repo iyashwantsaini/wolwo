@@ -20,7 +20,7 @@ class _SelectedWallState extends State<SelectedWall> {
               image: DecorationImage(
                   image: NetworkImage(widget.url), fit: BoxFit.cover)),
           child: Container(
-            margin: EdgeInsets.fromLTRB(0, 30, 10, 0),
+            margin: EdgeInsets.fromLTRB(0, 35, 10, 0),
             alignment: Alignment.topRight,
             child: InkWell(
               onTap: () => Navigator.pop(context), // handle your onTap here
@@ -28,13 +28,17 @@ class _SelectedWallState extends State<SelectedWall> {
                 padding: EdgeInsets.all(10.0),
                 child: Icon(
                   Icons.cancel,
-                  color: Colors.blue,
+                  color: Colors.white,
                   size: 30.0,
                 ),
               ),
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () => {},
+            child: Icon(Icons.format_paint),
+            backgroundColor: Colors.pink[600]),
       ),
     );
   }

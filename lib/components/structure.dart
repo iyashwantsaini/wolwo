@@ -24,14 +24,13 @@ class _StructureState extends State<Structure> {
   int _page = 0;
   GlobalKey _StructureigationKey = GlobalKey();
 
-
-_launchURL( String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +83,11 @@ _launchURL( String url) async {
         animationCurve: Curves.fastOutSlowIn,
         animationDuration: Duration(milliseconds: 250),
         onTap: (index) {
-          setState(() {
-            _page = index;
-          });
+          // Future.delayed(const Duration(milliseconds: 200), () {
+            setState(() {
+              _page = index;
+            });
+          // });
         },
       ),
       appBar: AppBar(
@@ -101,16 +102,17 @@ _launchURL( String url) async {
                       : _page == 3 ? 'user' : _page == 4 ? 'about' : null,
           style: GoogleFonts.hammersmithOne(
             textStyle: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          ),
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+            ),
           ),
         ),
         backgroundColor: Colors.white,
         actions: <Widget>[
           InkWell(
-            onTap: () => _launchURL("https://meyash.xyz/"),  // handle your onTap here
+            onTap: () =>
+                _launchURL("https://meyash.xyz/"), // handle your onTap here
             child: Container(
               padding: EdgeInsets.all(6.0),
               child: Icon(
@@ -121,7 +123,8 @@ _launchURL( String url) async {
             ),
           ),
           InkWell(
-            onTap: () => _launchURL("https://github.com/meyash"), // handle your onTap here
+            onTap: () => _launchURL(
+                "https://github.com/meyash"), // handle your onTap here
             child: Container(
               padding: EdgeInsets.all(10.0),
               child: Icon(
