@@ -3,11 +3,13 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:random_color/random_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wolwo/pages/subpages/aboutme.dart';
 import 'dart:async';
 
 import '../transition/slidetransition.dart';
 
 import '../pages/subpages/colorwall.dart';
+import '../pages/subpages/aboutme.dart';
 
 import 'package:wolwo/pages/collections.dart';
 import 'package:wolwo/pages/home.dart';
@@ -44,36 +46,29 @@ class _StructureState extends State<Structure> {
           Container(
             child: Icon(
               Icons.view_carousel,
-              size: 35.0,
-              color: Colors.green,
+              size: 30.0,
+              color: Color.fromRGBO(100, 150, 255, 1),
             ),
           ),
           Container(
             child: Icon(
               Icons.view_day,
-              size: 35.0,
-              color: Colors.deepOrange,
+              size: 30.0,
+              color: Color.fromRGBO(130, 225, 110, 1),
             ),
           ),
           Container(
             child: Icon(
               Icons.favorite,
-              size: 35.0,
-              color: Colors.pink,
+              size: 30.0,
+              color: Color.fromRGBO(255, 150, 150, 1),
             ),
           ),
           Container(
             child: Icon(
-              Icons.face,
-              size: 35.0,
-              color: Colors.purple,
-            ),
-          ),
-          Container(
-            child: Icon(
-              Icons.info,
-              size: 35.0,
-              color: Colors.blue,
+              Icons.settings,
+              size: 30.0,
+              color: Color.fromRGBO(200, 150, 128, 1),
             ),
           ),
         ],
@@ -85,10 +80,8 @@ class _StructureState extends State<Structure> {
             : _page == 1
                 ? Color.fromRGBO(197, 225, 165, 1)
                 : _page == 2
-                    ? Color.fromRGBO(206, 147, 216, 1)
-                    : _page == 3
-                        ? Color.fromRGBO(255, 204, 128, 1)
-                        : Color.fromRGBO(247, 202, 201, 1),
+                    ? Color.fromRGBO(247, 202, 201, 1)
+                    : _page == 3 ? Color.fromRGBO(255, 204, 128, 1) : null,
         animationCurve: Curves.linear,
         animationDuration: Duration(milliseconds: 300),
         onTap: (index) {
@@ -106,9 +99,7 @@ class _StructureState extends State<Structure> {
               ? 'wolwo'
               : _page == 1
                   ? 'collections'
-                  : _page == 2
-                      ? 'favourites'
-                      : _page == 3 ? 'user' : _page == 4 ? 'about' : null,
+                  : _page == 2 ? 'favourites' : _page == 3 ? 'settings' : null,
           style: GoogleFonts.hammersmithOne(
             textStyle: TextStyle(
               color: Colors.black,
@@ -122,32 +113,21 @@ class _StructureState extends State<Structure> {
             : _page == 1
                 ? Color.fromRGBO(197, 225, 165, 1)
                 : _page == 2
-                    ? Color.fromRGBO(206, 147, 216, 1)
-                    : _page == 3
-                        ? Color.fromRGBO(255, 204, 128, 1)
-                        : Color.fromRGBO(247, 202, 201, 1),
+                    ? Color.fromRGBO(247, 202, 201, 1)
+                    : _page == 3 ? Color.fromRGBO(255, 204, 128, 1) : null,
         actions: <Widget>[
           InkWell(
-            onTap: () =>
-                _launchURL("https://meyash.xyz/"), // handle your onTap here
+            onTap: () => {
+              Future.delayed(const Duration(milliseconds: 200), () {
+                Navigator.push(context, SlideLeftRoute(page: AboutMe()));
+              }),
+            },
             child: Container(
-              padding: EdgeInsets.all(6.0),
+              padding: EdgeInsets.all(15.0),
               child: Icon(
                 Icons.favorite,
                 color: Colors.pink,
-                size: 24.0,
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () => _launchURL(
-                "https://github.com/meyash"), // handle your onTap here
-            child: Container(
-              padding: EdgeInsets.all(10.0),
-              child: Icon(
-                Icons.code,
-                color: Colors.blue,
-                size: 35.0,
+                size: 27.0,
               ),
             ),
           ),
@@ -168,9 +148,7 @@ class _StructureState extends State<Structure> {
           ? Home()
           : _page == 1
               ? Collections()
-              : _page == 2
-                  ? Favourites()
-                  : _page == 3 ? User() : _page == 4 ? About() : null,
+              : _page == 2 ? Favourites() : _page == 3 ? User() : null,
     );
   }
 }
