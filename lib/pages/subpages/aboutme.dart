@@ -12,7 +12,32 @@ class _AboutMeState extends State<AboutMe> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(247, 202, 201, 1),
+        appBar: AppBar(
+          elevation: 0.0,
+          title: Text(
+            '',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+            ),
+          ),
+          backgroundColor: Color.fromRGBO(247, 202, 201, 1),
+          actions: <Widget>[
+            InkWell(
+              onTap: () => Navigator.pop(context), // handle your onTap here
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.cancel,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+              ),
+            ),
+          ],
+        ),
         body: Container(
             color: Color.fromRGBO(247, 202, 201, 1),
             child: StreamBuilder(
@@ -24,7 +49,7 @@ class _AboutMeState extends State<AboutMe> {
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: <Widget>[
-                      SizedBox(height: 180),
+                      SizedBox(height: 120),
 
                       // SlimyCard is being called here.
                       SlimyCard(

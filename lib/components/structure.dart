@@ -13,7 +13,6 @@ import '../pages/subpages/aboutme.dart';
 
 import 'package:wolwo/pages/collections.dart';
 import 'package:wolwo/pages/home.dart';
-import 'package:wolwo/pages/about.dart';
 import 'package:wolwo/pages/favourites.dart';
 import 'package:wolwo/pages/user.dart';
 
@@ -126,7 +125,7 @@ class _StructureState extends State<Structure> {
               padding: EdgeInsets.all(15.0),
               child: Icon(
                 Icons.favorite,
-                color: Colors.pink,
+                color: Colors.white,
                 size: 27.0,
               ),
             ),
