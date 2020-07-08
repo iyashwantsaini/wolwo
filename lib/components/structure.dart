@@ -45,7 +45,7 @@ class _StructureState extends State<Structure> {
         items: <Widget>[
           Container(
             child: Icon(
-              Icons.view_carousel,
+              Icons.wallpaper,
               size: 30.0,
               color: Color.fromRGBO(100, 150, 255, 1),
             ),
@@ -66,7 +66,7 @@ class _StructureState extends State<Structure> {
           ),
           Container(
             child: Icon(
-              Icons.settings,
+              Icons.equalizer,
               size: 30.0,
               color: Color.fromRGBO(200, 150, 128, 1),
             ),

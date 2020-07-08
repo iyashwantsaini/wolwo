@@ -3,9 +3,6 @@ import 'package:slimy_card/slimy_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutMe extends StatefulWidget {
-  final String url;
-  const AboutMe({Key key, @required this.url}) : super(key: key);
-
   @override
   _AboutMeState createState() => _AboutMeState();
 }
