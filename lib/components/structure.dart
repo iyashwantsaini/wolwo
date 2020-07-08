@@ -66,7 +66,7 @@ class _StructureState extends State<Structure> {
             child: Icon(
               Icons.equalizer,
               size: 30.0,
-              color: Color.fromRGBO(200, 150, 128, 1),
+              color: Colors.amber[600],
             ),
           ),
         ],
@@ -140,7 +140,7 @@ class _StructureState extends State<Structure> {
                     }),
                   },
               child: Icon(Icons.color_lens),
-              backgroundColor: Colors.pink[600])
+              backgroundColor: Colors.pink[400])
           : null,
       body: _page == 0
           ? Home()

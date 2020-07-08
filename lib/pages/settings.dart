@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:device_info/device_info.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 
 class Settings extends StatefulWidget {
@@ -11,17 +12,17 @@ class _SettingsState extends State<Settings> {
   DeviceInfoPlugin deviceInfo =
       DeviceInfoPlugin(); // instantiate device info plugin
   AndroidDeviceInfo androidDeviceInfo;
-  String board,
-      brand,
-      device,
-      hardware,
-      host,
-      id,
-      manufacture,
-      model,
-      product,
-      type,
-      androidid;
+  String board = '',
+      brand = '',
+      device = '',
+      hardware = '',
+      host = '',
+      id = '',
+      manufacture = '',
+      model = '',
+      product = '',
+      type = '',
+      androidid = '';
   bool isphysicaldevice;
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _SettingsState extends State<Settings> {
     androidDeviceInfo = await deviceInfo
         .androidInfo; // instantiate Android Device Infoformation
     setState(() {
-      board = androidDeviceInfo.board;
+      board = androidDeviceInfo.board.toString();
       brand = androidDeviceInfo.brand;
       device = androidDeviceInfo.device;
       hardware = androidDeviceInfo.hardware;
@@ -51,7 +52,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Color.fromRGBO(206, 147, 216, 1),
+        color: Color.fromRGBO(255, 204, 128, 1),
         width: double.infinity,
         // margin: EdgeInsets.all(10),
         child: ListView(
@@ -59,18 +60,234 @@ class _SettingsState extends State<Settings> {
           children: <Widget>[
             Container(
               height: 50,
-              color: Colors.amber[600],
-              child: const Center(child: Text('Entry A')),
+              color: Colors.amber[700],
+              padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'OPTION1',
+                    style: GoogleFonts.hammersmithOne(
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               height: 50,
-              color: Colors.amber[500],
-              child: const Center(child: Text('Entry B')),
+              color: Colors.amber[600],
+              padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'OPTION2',
+                    style: GoogleFonts.hammersmithOne(
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
-              height: 100,
-              color: Colors.amber[100],
-              child: const Center(child: Text("board")),
+              // height: 150,
+              color: Colors.amber[500],
+              padding: EdgeInsets.fromLTRB(20, 10, 30, 10),
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Device\n',
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Board : '+board,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Brand : '+brand,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Device : '+device,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Hardware : '+hardware,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Host : '+host,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'ID : '+id,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Manufature : '+manufacture,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Model : '+model,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Product : '+product,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Type : '+type,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'IsPhysical : '+(isphysicaldevice==0?'No':'Yes'),
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'AndroidID : '+androidid,
+                          style: GoogleFonts.hammersmithOne(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ));

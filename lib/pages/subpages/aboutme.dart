@@ -31,7 +31,7 @@ class _AboutMeState extends State<AboutMe> {
                 padding: EdgeInsets.all(10.0),
                 child: Icon(
                   Icons.cancel,
-                  color: Colors.white,
+                  color:  Colors.white,
                   size: 30.0,
                 ),
               ),
@@ -53,7 +53,7 @@ class _AboutMeState extends State<AboutMe> {
 
                       // SlimyCard is being called here.
                       SlimyCard(
-                        color: Color.fromRGBO(197, 225, 165, 1),
+                        color: Colors.amber[200],
                         // width: 200,
                         // topCardHeight: 400,
                         bottomCardHeight: 100,
@@ -116,7 +116,7 @@ Widget topCardWidget() {
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: Icon(
                   Icons.favorite,
-                  color: Colors.pink,
+                  color: Colors.pink[300],
                 ),
               ),
             ),
