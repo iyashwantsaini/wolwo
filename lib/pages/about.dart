@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:slimy_card/slimy_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
   @override
@@ -22,6 +23,12 @@ class _AboutState extends State<About> {
 
             // SlimyCard is being called here.
             SlimyCard(
+              color: Colors.blue,
+              // width: 200,
+              // topCardHeight: 400,
+              // bottomCardHeight: 200,
+              borderRadius: 30,
+              slimeEnabled: true,
               // In topCardWidget below, imagePath changes according to the
               // status of the SlimyCard(snapshot.data).
               topCardWidget: topCardWidget(),
@@ -97,16 +104,64 @@ Widget topCardWidget() {
 
 // This widget will be passed as Bottom Card's Widget.
 Widget bottomCardWidget() {
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   return Container(
-    child: Text(
-      'It doesn\'t matter \nwhat your name is.',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-      ),
-      textAlign: TextAlign.center,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        InkWell(
+            onTap: () => _launchURL(
+                "https://github.com/meyash"), // handle your onTap here
+            child: Container(
+                width: 30,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  // color: Colors.black,
+                ))),
+        InkWell(
+            onTap: () => _launchURL(
+                "mailto:yashsn2127@gmail.com"), // handle your onTap here
+            child: Container(
+                width: 30,
+                child: Image.asset(
+                  'assets/images/mail.png',
+                  // color: Colors.red,
+                ))),
+        InkWell(
+            onTap: () =>
+                _launchURL("https://meyash.xyz/"), // handle your onTap here
+            child: Container(
+                width: 30,
+                child: Image.asset(
+                  'assets/images/internet.png',
+                  // color: Colors.black,
+                ))),
+        InkWell(
+            onTap: () => _launchURL(
+                "https://www.linkedin.com/in/meyash21/"), // handle your onTap here
+            child: Container(
+                width: 30,
+                child: Image.asset(
+                  'assets/images/linkedin.png',
+                  // color: Colors.blueGrey,
+                ))),
+        InkWell(
+            onTap: () => _launchURL(
+                "https://api.whatsapp.com/send?phone=918397950022"), // handle your onTap here
+            child: Container(
+                width: 30,
+                child: Image.asset(
+                  'assets/images/phone.png',
+                  // color: Colors.green,
+                ))),
+      ],
     ),
-    
   );
 }

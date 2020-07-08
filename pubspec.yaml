@@ -46,7 +46,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/meyash.png
+    - assets/images/
   #   - assets/rodion-kutsaev.jpeg
   #   - assets/steve-johnson.jpeg
   # fonts:

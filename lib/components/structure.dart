@@ -44,49 +44,56 @@ class _StructureState extends State<Structure> {
           Container(
             child: Icon(
               Icons.view_carousel,
-              size: 32.0,
+              size: 35.0,
               color: Colors.green,
             ),
           ),
           Container(
             child: Icon(
               Icons.view_day,
-              size: 32.0,
+              size: 35.0,
               color: Colors.deepOrange,
             ),
           ),
           Container(
             child: Icon(
               Icons.favorite,
-              size: 32.0,
+              size: 35.0,
               color: Colors.pink,
             ),
           ),
           Container(
             child: Icon(
               Icons.face,
-              size: 32.0,
+              size: 35.0,
               color: Colors.purple,
             ),
           ),
           Container(
             child: Icon(
               Icons.info,
-              size: 32.0,
+              size: 35.0,
               color: Colors.blue,
             ),
           ),
         ],
-        color: Colors.grey[300],
+        // color: Colors.grey[300],
+        // color: Colors.white,
         buttonBackgroundColor: Colors.white.withOpacity(1),
-        backgroundColor: Colors.grey[200],
-        animationCurve: Curves.fastOutSlowIn,
-        animationDuration: Duration(milliseconds: 250),
+        backgroundColor: _page == 0
+            ? Colors.green
+            : _page == 1
+                ? Colors.deepOrange
+                : _page == 2
+                    ? Colors.pink
+                    : _page == 3 ? Colors.purple : Colors.blue,
+        animationCurve: Curves.linear,
+        animationDuration: Duration(milliseconds: 300),
         onTap: (index) {
           // Future.delayed(const Duration(milliseconds: 200), () {
-            setState(() {
-              _page = index;
-            });
+          setState(() {
+            _page = index;
+          });
           // });
         },
       ),
