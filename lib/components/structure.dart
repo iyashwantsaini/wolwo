@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:random_color/random_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wolwo/pages/subpages/aboutme.dart';
@@ -14,7 +13,7 @@ import '../pages/subpages/aboutme.dart';
 import 'package:wolwo/pages/collections.dart';
 import 'package:wolwo/pages/home.dart';
 import 'package:wolwo/pages/favourites.dart';
-import 'package:wolwo/pages/user.dart';
+import 'package:wolwo/pages/settings.dart';
 
 class Structure extends StatefulWidget {
   @override
@@ -147,7 +146,7 @@ class _StructureState extends State<Structure> {
           ? Home()
           : _page == 1
               ? Collections()
-              : _page == 2 ? Favourites() : _page == 3 ? User() : null,
+              : _page == 2 ? Favourites() : _page == 3 ? Settings() : null,
     );
   }
 }
