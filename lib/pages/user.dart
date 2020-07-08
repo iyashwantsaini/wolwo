@@ -9,7 +9,7 @@ class _UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
+      color: Color.fromRGBO(255, 204, 128,1),
       width: double.infinity,
       // margin: EdgeInsets.all(10),
       child: Column(

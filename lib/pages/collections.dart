@@ -20,7 +20,7 @@ class _CollectionsState extends State<Collections> {
 
     return Container(
       padding: EdgeInsets.fromLTRB(2, 6, 2, 2),
-      color: Colors.grey[200],
+      color:  Color.fromRGBO(197, 225, 165, 1),
       width: double.infinity,
       child: GlowingOverscrollIndicator(
         axisDirection: AxisDirection.down,
@@ -30,6 +30,7 @@ class _CollectionsState extends State<Collections> {
           children: <Widget>[
             Container(
                 // height: 196,
+                color:  Color.fromRGBO(197, 225, 165, 1),
                 width: double.infinity,
                 margin: EdgeInsets.all(3.0),
                 child: new Stack(

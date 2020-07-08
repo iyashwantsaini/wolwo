@@ -11,6 +11,7 @@ class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Color.fromRGBO(247, 202, 201,1),
         child: StreamBuilder(
       // This streamBuilder reads the real-time status of SlimyCard.
       initialData: false,
@@ -26,7 +27,7 @@ class _AboutState extends State<About> {
               color: Colors.blue,
               // width: 200,
               // topCardHeight: 400,
-              // bottomCardHeight: 200,
+              bottomCardHeight: 100,
               borderRadius: 30,
               slimeEnabled: true,
               // In topCardWidget below, imagePath changes according to the

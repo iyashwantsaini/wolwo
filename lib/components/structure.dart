@@ -39,7 +39,7 @@ class _StructureState extends State<Structure> {
         key: _StructureigationKey,
         // start app by this index
         index: 0,
-        height: 55.0,
+        height: 50.0,
         items: <Widget>[
           Container(
             child: Icon(
@@ -81,12 +81,14 @@ class _StructureState extends State<Structure> {
         // color: Colors.white,
         buttonBackgroundColor: Colors.white.withOpacity(1),
         backgroundColor: _page == 0
-            ? Colors.green
+            ? Color.fromRGBO(129, 212, 250, 1)
             : _page == 1
-                ? Colors.deepOrange
+                ? Color.fromRGBO(197, 225, 165, 1)
                 : _page == 2
-                    ? Colors.pink
-                    : _page == 3 ? Colors.purple : Colors.blue,
+                    ? Color.fromRGBO(206, 147, 216, 1)
+                    : _page == 3
+                        ? Color.fromRGBO(255, 204, 128, 1)
+                        : Color.fromRGBO(247, 202, 201, 1),
         animationCurve: Curves.linear,
         animationDuration: Duration(milliseconds: 300),
         onTap: (index) {
@@ -115,7 +117,15 @@ class _StructureState extends State<Structure> {
             ),
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: _page == 0
+            ? Color.fromRGBO(129, 212, 250, 1)
+            : _page == 1
+                ? Color.fromRGBO(197, 225, 165, 1)
+                : _page == 2
+                    ? Color.fromRGBO(206, 147, 216, 1)
+                    : _page == 3
+                        ? Color.fromRGBO(255, 204, 128, 1)
+                        : Color.fromRGBO(247, 202, 201, 1),
         actions: <Widget>[
           InkWell(
             onTap: () =>

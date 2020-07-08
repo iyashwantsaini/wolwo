@@ -22,7 +22,7 @@ class _FavouritesState extends State<Favourites> {
 
     return Container(
       padding: EdgeInsets.fromLTRB(2, 6, 2, 2),
-      color: Colors.grey[200],
+      color: Color.fromRGBO(206, 147, 216,1),
       width: double.infinity,
       child: GlowingOverscrollIndicator(
         axisDirection: AxisDirection.down,
@@ -36,6 +36,7 @@ class _FavouritesState extends State<Favourites> {
           scrollDirection: Axis.vertical,
           children: <Widget>[
             Container(
+              color: Color.fromRGBO(206, 147, 216,1),
                 margin: EdgeInsets.all(3.0),
                 child: new Stack(
                   children: <Widget>[
