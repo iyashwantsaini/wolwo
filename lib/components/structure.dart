@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wolwo/pages/subpages/aboutme.dart';
 import 'dart:async';
 
 import '../transition/slidetransition.dart';
 
 import '../pages/subpages/colorwall.dart';
-import '../pages/subpages/aboutme.dart';
+import '../pages/subpages/licenses.dart';
 
 import 'package:wolwo/pages/collections.dart';
 import 'package:wolwo/pages/home.dart';
@@ -117,7 +116,7 @@ class _StructureState extends State<Structure> {
           InkWell(
             onTap: () => {
               Future.delayed(const Duration(milliseconds: 200), () {
-                Navigator.push(context, SlideLeftRoute(page: AboutMe()));
+                Navigator.push(context, SlideLeftRoute(page: Licenses()));
               }),
             },
             child: Container(

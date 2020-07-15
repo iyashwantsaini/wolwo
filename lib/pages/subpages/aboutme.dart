@@ -12,7 +12,7 @@ class _AboutMeState extends State<AboutMe> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromRGBO(247, 202, 201, 1),
+        backgroundColor: Color.fromRGBO(129, 212, 250, 1),
         appBar: AppBar(
           elevation: 0.0,
           title: Text(
@@ -23,7 +23,7 @@ class _AboutMeState extends State<AboutMe> {
               fontSize: 25,
             ),
           ),
-          backgroundColor: Color.fromRGBO(247, 202, 201, 1),
+          backgroundColor: Color.fromRGBO(129, 212, 250, 1),
           actions: <Widget>[
             InkWell(
               onTap: () => Navigator.pop(context), // handle your onTap here
@@ -39,7 +39,7 @@ class _AboutMeState extends State<AboutMe> {
           ],
         ),
         body: Container(
-            color: Color.fromRGBO(247, 202, 201, 1),
+            color: Color.fromRGBO(129, 212, 250, 1),
             child: StreamBuilder(
               // This streamBuilder reads the real-time status of SlimyCard.
               initialData: false,
@@ -47,15 +47,15 @@ class _AboutMeState extends State<AboutMe> {
               builder: ((BuildContext context, AsyncSnapshot snapshot) {
                 return Container(
                   child: ListView(
-                    padding: EdgeInsets.zero,
+                    padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
                     children: <Widget>[
                       SizedBox(height: 120),
 
                       // SlimyCard is being called here.
                       SlimyCard(
-                        color: Colors.amber[200],
-                        // width: 200,
-                        // topCardHeight: 400,
+                        color: Color.fromRGBO(110, 200, 220, 1),
+                        // width: 300,
+                        topCardHeight: 250,
                         bottomCardHeight: 100,
                         borderRadius: 30,
                         slimeEnabled: true,
@@ -97,39 +97,39 @@ Widget topCardWidget() {
       ),
       SizedBox(height: 10),
       Text(
-        'meyash',
-        style: TextStyle(color: Colors.black, fontSize: 20),
+        'Yashwant',
+        style: TextStyle(color: Colors.black, fontSize: 20,fontWeight: FontWeight.bold),
       ),
       SizedBox(height: 10),
-      RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Made with ',
-              style: TextStyle(
-                  color: Colors.black.withOpacity(1),
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
-            ),
-            WidgetSpan(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: Icon(
-                  Icons.favorite,
-                  color: Colors.pink[300],
-                ),
-              ),
-            ),
-            TextSpan(
-              text: '\nby Yashwant',
-              style: TextStyle(
-                  color: Colors.black.withOpacity(1),
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
+      // RichText(
+      //   text: TextSpan(
+      //     children: [
+      //       TextSpan(
+      //         text: 'Made with ',
+      //         style: TextStyle(
+      //             color: Colors.black.withOpacity(1),
+      //             fontSize: 15,
+      //             fontWeight: FontWeight.bold),
+      //       ),
+      //       WidgetSpan(
+      //         child: Padding(
+      //           padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+      //           child: Icon(
+      //             Icons.favorite,
+      //             color: Colors.pink[300],
+      //           ),
+      //         ),
+      //       ),
+      //       TextSpan(
+      //         text: '\nby Yashwant',
+      //         style: TextStyle(
+      //             color: Colors.black.withOpacity(1),
+      //             fontSize: 15,
+      //             fontWeight: FontWeight.bold),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       SizedBox(height: 15),
     ],
   );
