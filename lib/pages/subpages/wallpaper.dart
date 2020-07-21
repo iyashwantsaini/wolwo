@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SelectedWall extends StatefulWidget {
   final String url;
@@ -9,9 +11,60 @@ class SelectedWall extends StatefulWidget {
 }
 
 class _SelectedWallState extends State<SelectedWall> {
+  Widget _buildTopBar() => Row(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.fromLTRB(10, 35, 0, 0),
+            alignment: Alignment.topLeft,
+            child: InkWell(
+              onTap: () => Navigator.pop(context), // handle your onTap here
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.cancel,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+              ),
+            ),
+          ),
+          Spacer(),
+          Container(
+            margin: EdgeInsets.fromLTRB(10, 35, 0, 0),
+            alignment: Alignment.topRight,
+            child: InkWell(
+              onTap: () => Navigator.pop(context), // handle your onTap here
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.info_outline,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
+            alignment: Alignment.topRight,
+            child: InkWell(
+              onTap: () => Navigator.pop(context), // handle your onTap here
+              child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Icon(
+                  Icons.open_in_browser,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
   /// Returns AppBar.
   Widget _buildSetBar() => Container(
-        child: Row(
+        child: Column(
           children: <Widget>[
             Spacer(),
             Container(
@@ -23,7 +76,7 @@ class _SelectedWallState extends State<SelectedWall> {
                 fillColor: Colors.pinkAccent,
                 child: Container(
                   child: Icon(
-                    Icons.file_download,
+                    Icons.format_paint,
                     size: 27.0,
                     color: Colors.white,
                   ),
@@ -41,7 +94,7 @@ class _SelectedWallState extends State<SelectedWall> {
                 fillColor: Colors.pinkAccent,
                 child: Container(
                   child: Icon(
-                    Icons.format_paint,
+                    Icons.file_download,
                     color: Colors.white,
                     size: 27.0,
                   ),
@@ -73,64 +126,12 @@ class _SelectedWallState extends State<SelectedWall> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: NetworkImage(widget.url), fit: BoxFit.cover)),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 35, 0, 0),
-                    alignment: Alignment.topLeft,
-                    child: InkWell(
-                      onTap: () =>
-                          Navigator.pop(context), // handle your onTap here
-                      child: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: Icon(
-                          Icons.cancel,
-                          color: Colors.white,
-                          size: 30.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 35, 0, 0),
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () =>
-                          Navigator.pop(context), // handle your onTap here
-                      child: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: Icon(
-                          Icons.info_outline,
-                          color: Colors.white,
-                          size: 30.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () =>
-                          Navigator.pop(context), // handle your onTap here
-                      child: Container(
-                        padding: EdgeInsets.all(10.0),
-                        child: Icon(
-                          Icons.open_in_browser,
-                          color: Colors.white,
-                          size: 30.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              child: _buildTopBar(),
             ),
             DraggableScrollableSheet(
               initialChildSize: 0.25,
               minChildSize: 0.2,
-              maxChildSize: 0.5,
+              maxChildSize: 0.75,
               builder:
                   (BuildContext context, ScrollController scrollController) {
                 return Container(
@@ -139,15 +140,44 @@ class _SelectedWallState extends State<SelectedWall> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0)),
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0)),
                   ),
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: 25,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(title: Text('Item $index'));
-                    },
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                  child: CircleAvatar(
+                                    radius: 25,
+                                    backgroundImage:
+                                        AssetImage('assets/images/person.png'),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Text(
+                                  'Author_Name',
+                                  style: GoogleFonts.hammersmithOne(
+                                    textStyle: TextStyle(
+                                      color: Colors.black,
+                                      // fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
