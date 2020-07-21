@@ -23,7 +23,7 @@ class _SelectedWallState extends State<SelectedWall> {
                 child: Icon(
                   Icons.cancel,
                   color: Colors.white,
-                  size: 30.0,
+                  size: 25.0,
                 ),
               ),
             ),
@@ -39,7 +39,7 @@ class _SelectedWallState extends State<SelectedWall> {
                 child: Icon(
                   Icons.info,
                   color: Colors.white,
-                  size: 30.0,
+                  size: 25.0,
                 ),
               ),
             ),
@@ -54,7 +54,7 @@ class _SelectedWallState extends State<SelectedWall> {
                 child: Icon(
                   Icons.open_in_browser,
                   color: Colors.white,
-                  size: 30.0,
+                  size: 25.0,
                 ),
               ),
             ),

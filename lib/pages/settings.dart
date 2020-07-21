@@ -62,8 +62,16 @@ class _SettingsState extends State<Settings> {
           padding: const EdgeInsets.all(8),
           children: <Widget>[
             Container(
+              decoration: BoxDecoration(
+                color: Colors.amber[700],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                  // bottomLeft: Radius.circular(20.0),
+                  // bottomRight: Radius.circular(20.0),
+                ),
+              ),
               height: 50,
-              color: Colors.amber[700],
               padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
               child: Row(
                 children: <Widget>[
@@ -82,7 +90,15 @@ class _SettingsState extends State<Settings> {
             ),
             Container(
               height: 50,
-              color: Colors.amber[600],
+              decoration: BoxDecoration(
+                color: Colors.amber[600],
+                borderRadius: BorderRadius.only(
+                  // topLeft: Radius.circular(20.0),
+                  // topRight: Radius.circular(20.0),
+                  // bottomLeft: Radius.circular(20.0),
+                  // bottomRight: Radius.circular(20.0),
+                ),
+              ),
               padding: EdgeInsets.fromLTRB(20, 0, 30, 0),
               child: Row(
                 children: <Widget>[
@@ -101,7 +117,15 @@ class _SettingsState extends State<Settings> {
             ),
             Container(
               // height: 150,
-              color: Colors.amber[500],
+              decoration: BoxDecoration(
+                color: Colors.amber[500],
+                borderRadius: BorderRadius.only(
+                  // topLeft: Radius.circular(20.0),
+                  // topRight: Radius.circular(20.0),
+                  // bottomLeft: Radius.circular(20.0),
+                  // bottomRight: Radius.circular(20.0),
+                ),
+              ),
               padding: EdgeInsets.fromLTRB(20, 10, 30, 10),
               child: Container(
                 child: Column(
@@ -295,7 +319,15 @@ class _SettingsState extends State<Settings> {
             ),
             Container(
               height: 50,
-              color: Colors.amber[400],
+              decoration: BoxDecoration(
+                color: Colors.amber[400],
+                borderRadius: BorderRadius.only(
+                  // topLeft: Radius.circular(20.0),
+                  // topRight: Radius.circular(20.0),
+                  // bottomLeft: Radius.circular(20.0),
+                  // bottomRight: Radius.circular(20.0),
+                ),
+              ),
               padding: EdgeInsets.fromLTRB(20, 15, 30, 0),
               child: new Stack(
                 children: <Widget>[
@@ -339,7 +371,15 @@ class _SettingsState extends State<Settings> {
             ),
             Container(
               height: 50,
-              color: Colors.amber[400],
+              decoration: BoxDecoration(
+                color: Colors.amber[400],
+                borderRadius: BorderRadius.only(
+                  // topLeft: Radius.circular(20.0),
+                  // topRight: Radius.circular(20.0),
+                  bottomLeft: Radius.circular(20.0),
+                  bottomRight: Radius.circular(20.0),
+                ),
+              ),
               padding: EdgeInsets.fromLTRB(20, 15, 30, 0),
               child: new Stack(
                 children: <Widget>[
