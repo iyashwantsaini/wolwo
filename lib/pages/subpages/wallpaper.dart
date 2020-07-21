@@ -12,6 +12,13 @@ class _SelectedWallState extends State<SelectedWall> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: 'Poppins',
+        // accentColor: Colors.grey[400],
+        canvasColor: Colors.transparent,
+      ),
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Container(
@@ -19,20 +26,54 @@ class _SelectedWallState extends State<SelectedWall> {
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(widget.url), fit: BoxFit.cover)),
-          child: Container(
-            margin: EdgeInsets.fromLTRB(0, 35, 10, 0),
-            alignment: Alignment.topRight,
-            child: InkWell(
-              onTap: () => Navigator.pop(context), // handle your onTap here
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                child: Icon(
-                  Icons.cancel,
-                  color: Colors.white,
-                  size: 30.0,
+          child: Row(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 35, 10, 0),
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: () => Navigator.pop(context), // handle your onTap here
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Icon(
+                      Icons.cancel,
+                      color: Colors.white,
+                      size: 30.0,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 35, 10, 0),
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: () => Navigator.pop(context), // handle your onTap here
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Icon(
+                      Icons.info_outline,
+                      color: Colors.white,
+                      size: 30.0,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 35, 10, 0),
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: () => Navigator.pop(context), // handle your onTap here
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Icon(
+                      Icons.open_in_browser,
+                      color: Colors.white,
+                      size: 30.0,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         floatingActionButton: FloatingActionButton(

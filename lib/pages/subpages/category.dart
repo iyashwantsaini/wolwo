@@ -9,6 +9,13 @@ class _SelectedCategoryState extends State<SelectedCategory> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: 'Poppins',
+        // accentColor: Colors.grey[400],
+        canvasColor: Colors.transparent,
+      ),
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

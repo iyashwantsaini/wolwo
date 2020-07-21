@@ -11,6 +11,13 @@ class _AboutMeState extends State<AboutMe> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: 'Poppins',
+        // accentColor: Colors.grey[400],
+        canvasColor: Colors.transparent,
+      ),
       home: Scaffold(
         backgroundColor: Color.fromRGBO(129, 212, 250, 1),
         appBar: AppBar(
@@ -31,7 +38,7 @@ class _AboutMeState extends State<AboutMe> {
                 padding: EdgeInsets.all(10.0),
                 child: Icon(
                   Icons.cancel,
-                  color:  Colors.white,
+                  color: Colors.white,
                   size: 30.0,
                 ),
               ),
@@ -98,7 +105,8 @@ Widget topCardWidget() {
       SizedBox(height: 10),
       Text(
         'Yashwant',
-        style: TextStyle(color: Colors.black, fontSize: 20,fontWeight: FontWeight.bold),
+        style: TextStyle(
+            color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       SizedBox(height: 10),
       // RichText(
