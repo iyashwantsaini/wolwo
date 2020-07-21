@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
                               children: <Widget>[
                                 new Positioned(
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderRadius: BorderRadius.circular(20.0),
                                     child: Container(
                                       width: size.width / 2.1,
                                       height: 270,
@@ -111,7 +111,7 @@ class _HomeState extends State<Home> {
                               children: <Widget>[
                                 new Positioned(
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderRadius: BorderRadius.circular(20.0),
                                     child: Container(
                                       width: size.width / 2.1,
                                       height: 270,

@@ -63,7 +63,7 @@ class _StructureState extends State<Structure> {
           ),
           Container(
             child: Icon(
-              Icons.equalizer,
+              Icons.settings,
               size: 30.0,
               color: Colors.amber[600],
             ),

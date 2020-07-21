@@ -19,7 +19,7 @@ class _CollectionsState extends State<Collections> {
     var size = MediaQuery.of(context).size;
 
     return Container(
-      padding: EdgeInsets.fromLTRB(2, 6, 2, 2),
+      padding: EdgeInsets.fromLTRB(4, 6, 4, 2),
       color: Color.fromRGBO(197, 225, 165, 1),
       width: size.width,
       height: size.height,
@@ -38,7 +38,7 @@ class _CollectionsState extends State<Collections> {
                   children: <Widget>[
                     new Positioned(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(20.0),
                         child: Container(
                           width: double.infinity,
                           height: 196,
@@ -73,7 +73,7 @@ class _CollectionsState extends State<Collections> {
                               },
                             ))),
                     new Positioned(
-                      top: 40.0,
+                      top: 30.0,
                       left: 30.0,
                       child: new Text(
                         'Technology',
@@ -96,7 +96,7 @@ class _CollectionsState extends State<Collections> {
                   children: <Widget>[
                     new Positioned(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(20.0),
                         child: Container(
                           width: double.infinity,
                           height: 196,
@@ -131,7 +131,7 @@ class _CollectionsState extends State<Collections> {
                               },
                             ))),
                     new Positioned(
-                      top: 40.0,
+                      top: 30.0,
                       left: 30.0,
                       child: new Text(
                         'Science',
