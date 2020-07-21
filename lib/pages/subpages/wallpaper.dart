@@ -143,41 +143,62 @@ class _SelectedWallState extends State<SelectedWall> {
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0)),
                   ),
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Row(
+                  child: ListView(
+                    // This next line does the trick.
+                    // scrollDirection: Axis.horizontal,
+                    controller: scrollController,
+                    children: <Widget>[
+                      Container(
+                        child: Column(
                           children: <Widget>[
-                            Column(
+                            Row(
                               children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                  child: CircleAvatar(
-                                    radius: 25,
-                                    backgroundImage:
-                                        AssetImage('assets/images/person.png'),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                Text(
-                                  'Author_Name',
-                                  style: GoogleFonts.hammersmithOne(
-                                    textStyle: TextStyle(
-                                      color: Colors.black,
-                                      // fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                Column(
+                                  children: <Widget>[
+                                    Container(
+                                      margin:
+                                          EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundImage: AssetImage(
+                                            'assets/images/person.png'),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Anthony Mark',
+                                      style: GoogleFonts.hammersmithOne(
+                                        textStyle: TextStyle(
+                                          color: Colors.black,
+                                          // fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                )
+                                    Container(
+                                      child: Text(
+                                        '11-10-2020',
+                                        style: GoogleFonts.hammersmithOne(
+                                          textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                // Spacer(),
+                                
                               ],
-                            ),
+                            )
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 );
               },
