@@ -97,7 +97,9 @@ class _StructureState extends State<Structure> {
               : _page == 1
                   ? 'collections'
                   : _page == 2 ? 'favourites' : _page == 3 ? 'settings' : null,
-          style: GoogleFonts.hammersmithOne(
+          style: 
+          // GoogleFonts.aBeeZee(
+          GoogleFonts.hammersmithOne(
             textStyle: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,

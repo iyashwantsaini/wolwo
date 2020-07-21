@@ -37,7 +37,7 @@ class _SelectedWallState extends State<SelectedWall> {
               child: Container(
                 padding: EdgeInsets.all(10.0),
                 child: Icon(
-                  Icons.info_outline,
+                  Icons.info,
                   color: Colors.white,
                   size: 30.0,
                 ),
