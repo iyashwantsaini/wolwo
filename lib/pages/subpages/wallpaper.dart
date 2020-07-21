@@ -9,18 +9,63 @@ class SelectedWall extends StatefulWidget {
 }
 
 class _SelectedWallState extends State<SelectedWall> {
+  /// Returns AppBar.
+  Widget _buildSetBar() => Container(
+        child: Row(
+          children: <Widget>[
+            Spacer(),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+              alignment: Alignment.bottomRight,
+              child: RawMaterialButton(
+                onPressed: () {},
+                // elevation: 3.0,
+                fillColor: Colors.pinkAccent,
+                child: Container(
+                  child: Icon(
+                    Icons.file_download,
+                    size: 27.0,
+                    color: Colors.white,
+                  ),
+                ),
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+              alignment: Alignment.bottomRight,
+              child: RawMaterialButton(
+                onPressed: () {},
+                // elevation: 3.0,
+                fillColor: Colors.pinkAccent,
+                child: Container(
+                  child: Icon(
+                    Icons.format_paint,
+                    color: Colors.white,
+                    size: 27.0,
+                  ),
+                ),
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
+              ),
+            ),
+          ],
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.transparent,
         fontFamily: 'Poppins',
         // accentColor: Colors.grey[400],
         canvasColor: Colors.transparent,
       ),
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         body: Stack(
           children: <Widget>[
             Container(
@@ -106,13 +151,16 @@ class _SelectedWallState extends State<SelectedWall> {
                   ),
                 );
               },
-            )
+            ),
+            Container(
+              child: _buildSetBar(),
+            ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () => {},
-            child: Icon(Icons.format_paint),
-            backgroundColor: Colors.pink[600]),
+        // floatingActionButton: FloatingActionButton(
+        //     onPressed: () => {},
+        //     child: Icon(Icons.format_paint),
+        //     backgroundColor: Colors.pink[600]),
       ),
     );
   }
