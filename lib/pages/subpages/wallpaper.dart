@@ -29,8 +29,8 @@ class _SelectedWallState extends State<SelectedWall> {
           child: Row(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.fromLTRB(0, 35, 10, 0),
-                alignment: Alignment.topRight,
+                margin: EdgeInsets.fromLTRB(10, 35, 0, 0),
+                alignment: Alignment.topLeft,
                 child: InkWell(
                   onTap: () => Navigator.pop(context), // handle your onTap here
                   child: Container(
@@ -44,7 +44,7 @@ class _SelectedWallState extends State<SelectedWall> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 35, 10, 0),
+                margin: EdgeInsets.fromLTRB(220, 35, 0, 0),
                 alignment: Alignment.topRight,
                 child: InkWell(
                   onTap: () => Navigator.pop(context), // handle your onTap here
@@ -59,7 +59,7 @@ class _SelectedWallState extends State<SelectedWall> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 35, 10, 0),
+                margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
                 alignment: Alignment.topRight,
                 child: InkWell(
                   onTap: () => Navigator.pop(context), // handle your onTap here
@@ -83,4 +83,5 @@ class _SelectedWallState extends State<SelectedWall> {
       ),
     );
   }
+
 }
