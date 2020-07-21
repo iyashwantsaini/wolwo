@@ -192,9 +192,38 @@ class _SelectedWallState extends State<SelectedWall> {
                                   ],
                                 ),
                                 // Spacer(),
-                                
                               ],
-                            )
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(20, 10, 60, 0),
+                                  child: Flexible(
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: <Widget>[
+                                          Text(
+                                            "Just ran into this, mildly frustrating. It would be really nice if this was better documented - it definitely isn't intuitive that to get text to wrap inside a Column, you need to constrain it by wrapping it in something that is called a Flexible. If anything, intuition would suggest that you'd use a Flexible to constrain the text less, not more!",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "22:30",
+                                              style: TextStyle(
+                                                  color: Colors.grey[300],
+                                                  fontSize: 12.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       )
