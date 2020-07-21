@@ -129,9 +129,9 @@ class _SelectedWallState extends State<SelectedWall> {
               child: _buildTopBar(),
             ),
             DraggableScrollableSheet(
-              initialChildSize: 0.25,
+              initialChildSize: 0.4,
               minChildSize: 0.2,
-              maxChildSize: 0.75,
+              maxChildSize: 0.5,
               builder:
                   (BuildContext context, ScrollController scrollController) {
                 return Container(
@@ -179,8 +179,21 @@ class _SelectedWallState extends State<SelectedWall> {
                                       ),
                                     ),
                                     Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
                                       child: Text(
                                         '11-10-2020',
+                                        style: GoogleFonts.hammersmithOne(
+                                          textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 60, 0),
+                                      child: Text(
+                                        'Unsplash',
                                         style: GoogleFonts.hammersmithOne(
                                           textStyle: TextStyle(
                                             color: Colors.black,
@@ -196,32 +209,110 @@ class _SelectedWallState extends State<SelectedWall> {
                             ),
                             Row(
                               children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 10, 60, 0),
-                                  child: Flexible(
-                                    child: Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          Text(
-                                            "Just ran into this, mildly frustrating. It would be really nice if this was better documented - it definitely isn't intuitive that to get text to wrap inside a Column, you need to constrain it by wrapping it in something that is called a Flexible. If anything, intuition would suggest that you'd use a Flexible to constrain the text less, not more!",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "22:30",
-                                              style: TextStyle(
-                                                  color: Colors.grey[300],
-                                                  fontSize: 12.0),
-                                            ),
-                                          ),
-                                        ],
+                                Flexible(
+                                  child: Container(
+                                    margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                                    // width: double.infinity,
+                                    child: Text(
+                                      "Just ran into this, mildly frustrating. It would be really nice if this was better documented - it definitely isn't intuitive that to get text to wrap inside a Column, you need to constrain it by wrapping it in something that is called a Flexible.",
+                                      style: GoogleFonts.hammersmithOne(
+                                        textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 10,
+                                        ),
                                       ),
+                                      overflow: TextOverflow.clip,
+                                      softWrap: true,
                                     ),
                                   ),
                                 ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    Container(
+                                      margin:
+                                          EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                      child: Container(
+                                        // padding: EdgeInsets.all(15.0),
+                                        child: Icon(
+                                          Icons.camera,
+                                          color: Colors.black,
+                                          size: 35.0,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Camera Info',
+                                      style: GoogleFonts.hammersmithOne(
+                                        textStyle: TextStyle(
+                                          color: Colors.black,
+                                          // fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                      child: Text(
+                                        'Some More Info',
+                                        style: GoogleFonts.hammersmithOne(
+                                          textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                // Spacer(),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    Container(
+                                      margin:
+                                          EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                      child: Container(
+                                        // padding: EdgeInsets.all(15.0),
+                                        child: Icon(
+                                          Icons.image,
+                                          color: Colors.black,
+                                          size: 30.0,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    FlatButton(
+                                      color: Colors.pinkAccent,
+                                      child: Text(
+                                        'Unsplash Profile',
+                                        style: GoogleFonts.hammersmithOne(
+                                          textStyle: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        print('You tapped on FlatButton');
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                // Spacer(),
                               ],
                             ),
                           ],
