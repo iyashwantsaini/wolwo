@@ -43,8 +43,9 @@ class _SelectedWallState extends State<SelectedWall> {
                   ),
                 ),
               ),
+              Spacer(),
               Container(
-                margin: EdgeInsets.fromLTRB(220, 35, 0, 0),
+                margin: EdgeInsets.fromLTRB(10, 35, 0, 0),
                 alignment: Alignment.topRight,
                 child: InkWell(
                   onTap: () => Navigator.pop(context), // handle your onTap here
