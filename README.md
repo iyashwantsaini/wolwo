@@ -10,7 +10,7 @@
 <br />
 
 ![one](img/one.jpg)
-![two](img/two.jpg)
+![two](img/two2.jpg)
 
 ## Getting Started
 
