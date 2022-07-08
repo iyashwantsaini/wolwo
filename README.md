@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href=""><img src="https://raw.githubusercontent.com/meyash/wolwo/master/img/icon.png" alt="logo" width="100"></a>
+  <a href=""><img src="https://raw.githubusercontent.com/iyashwantsaini/wolwo/master/img/icon.png" alt="logo" width="100"></a>
   <br>
     wolwo
   <br>
