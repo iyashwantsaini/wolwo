@@ -62,7 +62,7 @@ class _T {
 
   /// Tiny caption shown under action-row icons.
   static TextStyle actionLabel(Color c) =>
-      mono(size: 10, weight: FontWeight.w400, color: c, letterSpacing: 0.4);
+      mono(size: 8, weight: FontWeight.w400, color: c, letterSpacing: 0.2);
 }
 
 /// `async_wallpaper` and `gallery_saver_plus` are Android-only. On web /
@@ -425,6 +425,10 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                 minScale: _minScale,
                 maxScale: _maxScale,
                 clipBehavior: Clip.hardEdge,
+                // Allow free panning at any zoom level (including 1x) so the
+                // user can slide a `BoxFit.cover`-cropped wallpaper around to
+                // pick which slice ends up on the lock/home screen.
+                boundaryMargin: const EdgeInsets.all(double.infinity),
                 onInteractionStart: (_) {
                   if (_showHint) setState(() => _showHint = false);
                 },
@@ -515,8 +519,12 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
           if (_showHint)
             Positioned(
               top: topInset + _T.sm + 4,
-              left: 0,
-              right: 0,
+              // Stay clear of the back/layout circle buttons (~44dp + 16dp
+              // margin = 60dp on each side). Without this margin the hint
+              // pill stretches almost edge-to-edge and visually crowds the
+              // corner buttons on narrow phones.
+              left: 64,
+              right: 64,
               child: IgnorePointer(
                 child: Center(
                   child: AnimatedOpacity(
@@ -542,10 +550,14 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                           Icon(Icons.swipe_rounded,
                               size: 14, color: scheme.onSurfaceVariant,),
                           const SizedBox(width: _T.xs + 2),
-                          Text(
-                            'PINCH TO ZOOM · DRAG TO REPOSITION',
-                            style:
-                                _T.metaLabel(scheme.onSurfaceVariant),
+                          Flexible(
+                            child: Text(
+                              'PINCH · DRAG',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style:
+                                  _T.metaLabel(scheme.onSurfaceVariant),
+                            ),
                           ),
                         ],
                       ),
@@ -698,57 +710,66 @@ class _ViewerActions extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (layout) {
       case ViewerLayout.bar:
+        // Centered when the row fits, scrolls horizontally when it doesn't.
+        // Trick: SingleChildScrollView with a ConstrainedBox forcing the
+        // child's minWidth to the viewport, plus a Row centred inside.
         return Positioned(
           left: 0,
           right: 0,
           bottom: bottomInset + _T.lg,
-          child: Center(
-            child: SingleChildScrollView(
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: _T.md),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _ViewerButton(
-                    icon: Icons.wallpaper_rounded,
-                    label: 'Apply',
-                    primary: true,
-                    busy: busy,
-                    onTap: onApply,
-                    scheme: scheme,
-                  ),
-                  const SizedBox(width: _T.md),
-                  _ViewerButton(
-                    icon: Icons.download_rounded,
-                    label: 'Save',
-                    onTap: onSave,
-                    scheme: scheme,
-                  ),
-                  const SizedBox(width: _T.md),
-                  _ViewerButton(
-                    icon: Icons.share_rounded,
-                    label: 'Share',
-                    onTap: onShare,
-                    scheme: scheme,
-                  ),
-                  const SizedBox(width: _T.md),
-                  _ViewerButton(
-                    icon: isFav
-                        ? Icons.favorite_rounded
-                        : Icons.favorite_outline_rounded,
-                    label: isFav ? 'Saved' : 'Favorite',
-                    color: isFav ? Colors.redAccent : null,
-                    onTap: onFavorite,
-                    scheme: scheme,
-                  ),
-                  const SizedBox(width: _T.md),
-                  _ViewerButton(
-                    icon: Icons.info_outline_rounded,
-                    label: 'Info',
-                    onTap: onInfo,
-                    scheme: scheme,
-                  ),
-                ],
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: constraints.maxWidth - _T.md * 2,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    _ViewerButton(
+                      icon: Icons.wallpaper_rounded,
+                      label: 'Apply',
+                      primary: true,
+                      busy: busy,
+                      onTap: onApply,
+                      scheme: scheme,
+                    ),
+                    const SizedBox(width: _T.sm),
+                    _ViewerButton(
+                      icon: Icons.download_rounded,
+                      label: 'Save',
+                      onTap: onSave,
+                      scheme: scheme,
+                    ),
+                    const SizedBox(width: _T.sm),
+                    _ViewerButton(
+                      icon: Icons.share_rounded,
+                      label: 'Share',
+                      onTap: onShare,
+                      scheme: scheme,
+                    ),
+                    const SizedBox(width: _T.sm),
+                    _ViewerButton(
+                      icon: isFav
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_outline_rounded,
+                      label: isFav ? 'Saved' : 'Favorite',
+                      color: isFav ? Colors.redAccent : null,
+                      onTap: onFavorite,
+                      scheme: scheme,
+                    ),
+                    const SizedBox(width: _T.sm),
+                    _ViewerButton(
+                      icon: Icons.info_outline_rounded,
+                      label: 'Info',
+                      onTap: onInfo,
+                      scheme: scheme,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -899,26 +920,36 @@ class _ViewerButton extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(_T.md + 2),
       child: Container(
-        constraints: const BoxConstraints(minWidth: 64),
-        padding: const EdgeInsets.symmetric(
-            horizontal: _T.md, vertical: _T.sm + 2,),
+        // Fixed footprint so swapping the label text (e.g. Favorite ->
+        // Saved) doesn't reflow the row or appear to shrink the icon.
+        // Slightly wider than tall to give the longest label ("Favorite")
+        // a little breathing room from the rounded border.
+        width: 64,
+        height: 52,
+        padding: const EdgeInsets.symmetric(horizontal: _T.xs),
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(_T.md + 2),
           border: Border.all(color: border, width: 1),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 22,
-              width: 22,
+              height: 18,
+              width: 18,
               child: busy
                   ? CircularProgressIndicator(strokeWidth: 2, color: tint)
-                  : Icon(icon, color: tint, size: 22),
+                  : Icon(icon, color: tint, size: 18),
             ),
             const SizedBox(height: _T.xs),
-            Text(label, style: _T.actionLabel(tint)),
+            Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: _T.actionLabel(tint),
+            ),
           ],
         ),
       ),
@@ -1062,21 +1093,26 @@ class _SurfaceCircleBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.black.withValues(alpha: 0.55),
-      shape: CircleBorder(
-        side: BorderSide(
-          color: Colors.white.withValues(alpha: 0.18),
-          width: 1,
+    // Wrap in an opaque GestureDetector so taps are claimed at the top
+    // of the hit chain. Without this, InteractiveViewer's pan/scale
+    // recognizer below in the Stack frequently wins the gesture arena
+    // on micro-jitter taps and the back / layout buttons require
+    // multiple presses to register.
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      onLongPress: onLongPress,
+      child: Material(
+        color: Colors.black.withValues(alpha: 0.55),
+        shape: CircleBorder(
+          side: BorderSide(
+            color: Colors.white.withValues(alpha: 0.18),
+            width: 1,
+          ),
         ),
-      ),
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: onTap,
-        onLongPress: onLongPress,
         child: SizedBox(
-          width: 40,
-          height: 40,
+          width: 44,
+          height: 44,
           child: Icon(icon, color: Colors.white, size: 20),
         ),
       ),
