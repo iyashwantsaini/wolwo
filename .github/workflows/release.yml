@@ -175,13 +175,13 @@ jobs:
               echo "## wolwo v${{ steps.version.outputs.version }}"
               echo ""
               if [[ -n "$LAST_TAG" ]]; then
-                echo "### Changes since \`$LAST_TAG\`"
+                echo "### Recent changes (last 5 commits since \`$LAST_TAG\`)"
                 echo ""
-                git log "${LAST_TAG}..HEAD" --pretty=format:"- %s (%h)" --no-merges
+                git log "${LAST_TAG}..HEAD" --pretty=format:"- %s (%h)" --no-merges -5
               else
                 echo "### Recent commits"
                 echo ""
-                git log --pretty=format:"- %s (%h)" --no-merges -25
+                git log --pretty=format:"- %s (%h)" --no-merges -5
               fi
               echo ""
               echo ""
