@@ -31,7 +31,6 @@
 /build/
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -41,3 +40,15 @@ app.*.map.json
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# wolwo: secrets — never commit
+.env.dart-define
+.env.dart-define.*
+!.env.dart-define.example
+android/key.properties
+android/app/*.jks
+android/app/*.keystore
+ios/Runner/GoogleService-Info.plist
+
+
+.refs/

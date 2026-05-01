@@ -1,0 +1,220 @@
+name: Build and Release Android APK
+
+# Triggers:
+#   - push of any tag starting with `v` (e.g. `v2.1.0`)  → publishes a release
+#   - manual dispatch via the Actions tab               → publishes with the
+#     version already in pubspec.yaml (handy for hotfix re-runs)
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      release_notes:
+        description: "Optional release notes (Markdown). Leave empty to auto-generate from commit history."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build signed release APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # changelog needs full history
+
+      # ── Toolchain ──────────────────────────────────────────────
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter (stable)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Verify Flutter install
+        run: |
+          flutter --version
+          flutter doctor -v
+
+      # ── Dependencies ──────────────────────────────────────────
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*', 'android/**/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+
+      - name: Cache pub
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      - name: Install Flutter packages
+        run: flutter pub get
+
+      # ── Versioning ────────────────────────────────────────────
+      # Tag-driven release: derive version from the pushed tag.
+      # Manual dispatch: just read whatever is already in pubspec.yaml.
+      - name: Derive release version
+        id: version
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/v}"
+          else
+            VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}' | cut -d'+' -f1)
+          fi
+          if [[ -z "$VERSION" ]]; then
+            echo "::error::Could not determine version"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Version: $VERSION"
+
+      # ── Signing ───────────────────────────────────────────────
+      # Detect whether the keystore secret is present. GitHub doesn't
+      # let us reference `secrets.X` directly inside an `if:` so we
+      # bounce the boolean through env.
+      - name: Detect keystore secret
+        run: |
+          if [[ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]]; then
+            echo "HAVE_KEYSTORE=true" >> "$GITHUB_ENV"
+          else
+            echo "HAVE_KEYSTORE=false" >> "$GITHUB_ENV"
+            echo "::warning::ANDROID_KEYSTORE_BASE64 secret not set — APK will be signed with the debug key. Installs are NOT upgrade-compatible with previous releases."
+          fi
+
+      # Decode the base64-encoded keystore secret and write key.properties
+      # so `signingConfigs.release` in android/app/build.gradle.kts picks
+      # it up automatically. If the keystore secret is missing the build
+      # falls back to the debug keystore (so forks without secrets still
+      # produce a runnable APK \u2014 just not an upgrade-compatible one).
+      - name: Decode signing keystore
+        if: ${{ env.HAVE_KEYSTORE == 'true' }}
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android/app/wolwo-release.keystore
+          cat > android/key.properties <<EOF
+          storeFile=app/wolwo-release.keystore
+          storePassword=$ANDROID_KEYSTORE_PASSWORD
+          keyAlias=$ANDROID_KEY_ALIAS
+          keyPassword=$ANDROID_KEY_PASSWORD
+          EOF
+
+      # ── Build ────────────────────────────────────────────────
+      # Per-architecture split APKs keep download size small for end
+      # users. We also build a universal APK as a safety net for
+      # sideloaders who don't know their CPU.
+      - name: Build signed split APKs
+        env:
+          # Key material for sources that need them at compile time
+          # (Pixabay key is required to call the API). Set these as
+          # repo / org secrets — leave empty to ship without baked
+          # keys (users can still paste their own in Settings).
+          WALLHAVEN_KEY: ${{ secrets.WALLHAVEN_KEY }}
+          PIXABAY_KEY: ${{ secrets.PIXABAY_KEY }}
+          NASA_KEY: ${{ secrets.NASA_KEY || 'DEMO_KEY' }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT || format('wolwo:v{0} (by /u/anonymous)', steps.version.outputs.version) }}
+        run: |
+          flutter build apk --release --split-per-abi \
+            --dart-define=WALLHAVEN_KEY="$WALLHAVEN_KEY" \
+            --dart-define=PIXABAY_KEY="$PIXABAY_KEY" \
+            --dart-define=NASA_KEY="$NASA_KEY" \
+            --dart-define=REDDIT_USER_AGENT="$REDDIT_USER_AGENT"
+          flutter build apk --release \
+            --dart-define=WALLHAVEN_KEY="$WALLHAVEN_KEY" \
+            --dart-define=PIXABAY_KEY="$PIXABAY_KEY" \
+            --dart-define=NASA_KEY="$NASA_KEY" \
+            --dart-define=REDDIT_USER_AGENT="$REDDIT_USER_AGENT"
+
+      # ── Rename APKs with the version + ABI ─────────────────
+      - name: Rename APKs
+        run: |
+          OUT=build/app/outputs/flutter-apk
+          V=${{ steps.version.outputs.version }}
+          mkdir -p release-apks
+          for abi in arm64-v8a armeabi-v7a x86_64; do
+            if [[ -f "$OUT/app-$abi-release.apk" ]]; then
+              cp "$OUT/app-$abi-release.apk" "release-apks/wolwo-v${V}-${abi}.apk"
+            fi
+          done
+          if [[ -f "$OUT/app-release.apk" ]]; then
+            cp "$OUT/app-release.apk" "release-apks/wolwo-v${V}-universal.apk"
+          fi
+          ls -la release-apks/
+
+      # ── Release notes ────────────────────────────────────────
+      - name: Generate release notes
+        id: notes
+        run: |
+          if [[ -n "${{ github.event.inputs.release_notes }}" ]]; then
+            echo "${{ github.event.inputs.release_notes }}" > release-notes.md
+          else
+            LAST_TAG=$(git describe --tags --abbrev=0 "HEAD^" 2>/dev/null || echo "")
+            {
+              echo "## wolwo v${{ steps.version.outputs.version }}"
+              echo ""
+              if [[ -n "$LAST_TAG" ]]; then
+                echo "### Changes since \`$LAST_TAG\`"
+                echo ""
+                git log "${LAST_TAG}..HEAD" --pretty=format:"- %s (%h)" --no-merges
+              else
+                echo "### Recent commits"
+                echo ""
+                git log --pretty=format:"- %s (%h)" --no-merges -25
+              fi
+              echo ""
+              echo ""
+              echo "### Installation"
+              echo ""
+              echo "Pick the APK matching your device's CPU:"
+              echo "- **arm64-v8a** — almost every modern phone (recommended)"
+              echo "- **armeabi-v7a** — older 32-bit ARM devices"
+              echo "- **x86_64** — emulators / Chromebooks"
+              echo "- **universal** — works everywhere, larger download"
+            } > release-notes.md
+          fi
+          cat release-notes.md
+
+      # ── Publish ──────────────────────────────────────────────
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: wolwo-v${{ steps.version.outputs.version }}-apks
+          path: release-apks/*.apk
+          if-no-files-found: error
+
+      - name: Create / update GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          V: ${{ steps.version.outputs.version }}
+        run: |
+          if gh release view "v$V" >/dev/null 2>&1; then
+            gh release upload "v$V" release-apks/*.apk --clobber
+            gh release edit   "v$V" --notes-file release-notes.md
+          else
+            gh release create "v$V" release-apks/*.apk \
+              --title "wolwo v$V" \
+              --notes-file release-notes.md \
+              --latest
+          fi
