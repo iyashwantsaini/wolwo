@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'image_cache_manager.dart';
 import 'image_proxy.dart';
 import 'img.dart';
 
@@ -92,6 +93,7 @@ class _NetworkImageWithFallbackState extends State<NetworkImageWithFallback> {
       // Cache key is stable across proxy mirrors so the image is only
       // decoded once even if we had to retry.
       cacheKey: widget.url,
+      cacheManager: WolwoImageCacheManager.instance,
       imageUrl: current,
       fit: widget.fit,
       alignment: widget.alignment,

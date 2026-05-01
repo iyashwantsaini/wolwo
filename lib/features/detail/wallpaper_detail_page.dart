@@ -17,6 +17,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../app/providers.dart';
+import '../../core/net/image_cache_manager.dart';
 import '../../core/net/image_proxy.dart';
 import '../../core/net/network_image_with_fallback.dart';
 import '../../data/local/app_settings.dart';
@@ -1375,7 +1376,11 @@ class _ProgressiveImageState extends State<_ProgressiveImage> {
     // the placeholder builder runs (which fires while loading is still
     // in flight and was making the LOADING HI-RES banner stick around
     // forever).
-    _provider = CachedNetworkImageProvider(widget.fullUrl, cacheKey: widget.fullUrl);
+    _provider = CachedNetworkImageProvider(
+      widget.fullUrl,
+      cacheKey: widget.fullUrl,
+      cacheManager: WolwoImageCacheManager.instance,
+    );
     _stream = _provider!.resolve(const ImageConfiguration());
     _stream!.addListener(_listener);
   }

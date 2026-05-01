@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../app/providers.dart';
 import '../../core/config/api_keys.dart';
 import '../../core/config/app_config.dart';
+import '../../core/net/image_cache_manager.dart';
 import '../../core/theme/design_tokens.dart';
 import '../../data/sources/wallpaper_source.dart';
 import '../common/page_header.dart';
@@ -123,6 +124,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             onTap: () async {
               await CachedNetworkImage.evictFromCache('');
               await DefaultCacheManager().emptyCache();
+              await WolwoImageCacheManager.instance.emptyCache();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Image cache cleared')),

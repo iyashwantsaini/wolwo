@@ -2,7 +2,7 @@ name: wolwo
 description: A free, beautiful, open-source 4K wallpaper app.
 publish_to: "none"
 
-version: 2.0.1+2
+version: 2.0.2+3
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
