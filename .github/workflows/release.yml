@@ -211,7 +211,7 @@ jobs:
         run: |
           if gh release view "v$V" >/dev/null 2>&1; then
             gh release upload "v$V" release-apks/*.apk --clobber
-            gh release edit   "v$V" --notes-file release-notes.md
+            gh release edit   "v$V" --notes-file release-notes.md --draft=false --latest
           else
             gh release create "v$V" release-apks/*.apk \
               --title "wolwo v$V" \
