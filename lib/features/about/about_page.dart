@@ -58,14 +58,14 @@ class AboutPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(s.displayName,
-                        style: Theme.of(context).textTheme.titleMedium),
+                        style: Theme.of(context).textTheme.titleMedium,),
                     const SizedBox(height: 4),
                     Text(s.description,
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.outline)),
+                            color: Theme.of(context).colorScheme.outline,),),
                     const SizedBox(height: 12),
                     Text(s.licenseSummary,
-                        style: Theme.of(context).textTheme.bodySmall),
+                        style: Theme.of(context).textTheme.bodySmall,),
                     const SizedBox(height: 12),
                     Wrap(
                       spacing: 8,
@@ -75,14 +75,14 @@ class AboutPage extends ConsumerWidget {
                           icon: const Icon(Icons.gavel_outlined, size: 16),
                           label: const Text('License'),
                           onPressed: () => launchUrl(s.licenseUrl,
-                              mode: LaunchMode.externalApplication),
+                              mode: LaunchMode.externalApplication,),
                         ),
                         if (s.privacyUrl != null)
                           OutlinedButton.icon(
                             icon: const Icon(Icons.policy_outlined, size: 16),
                             label: const Text('Privacy'),
                             onPressed: () => launchUrl(s.privacyUrl!,
-                                mode: LaunchMode.externalApplication),
+                                mode: LaunchMode.externalApplication,),
                           ),
                       ],
                     ),

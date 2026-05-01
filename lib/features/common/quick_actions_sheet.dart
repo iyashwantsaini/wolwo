@@ -106,7 +106,7 @@ class _QuickActions extends ConsumerWidget {
             label: 'Copy image URL',
             onTap: () async {
               await Clipboard.setData(
-                  ClipboardData(text: wallpaper.fullUrl));
+                  ClipboardData(text: wallpaper.fullUrl),);
               if (!context.mounted) return;
               close();
               snack('Image URL copied');
@@ -119,7 +119,7 @@ class _QuickActions extends ConsumerWidget {
               onTap: () async {
                 close();
                 await launchUrl(Uri.parse(wallpaper.sourcePageUrl!),
-                    mode: LaunchMode.externalApplication);
+                    mode: LaunchMode.externalApplication,);
               },
             ),
           const SizedBox(height: Tk.sm),
@@ -146,7 +146,7 @@ class _ActionRow extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: Tk.lg, vertical: Tk.md),
+            horizontal: Tk.lg, vertical: Tk.md,),
         child: Row(
           children: [
             Icon(icon, size: 20, color: scheme.onSurface),

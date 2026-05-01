@@ -155,7 +155,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(Tk.md, 0, Tk.sm, 0),
                     child: Icon(Icons.search_rounded,
-                        color: scheme.outline, size: 18),
+                        color: scheme.outline, size: 18,),
                   ),
                   Expanded(
                     child: TextField(
@@ -191,7 +191,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(Tk.sm + 2),
                         child: Icon(Icons.close_rounded,
-                            color: scheme.outline, size: 16),
+                            color: scheme.outline, size: 16,),
                       ),
                     ),
                 ],
@@ -213,7 +213,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   )
                 : WallpaperGrid(
                     key: ValueKey(
-                        '$_query-${_sourceFilter == null ? "all" : (_sourceFilter!.toList()..sort()).join(",")}-$_refreshNonce'),
+                        '$_query-${_sourceFilter == null ? "all" : (_sourceFilter!.toList()..sort()).join(",")}-$_refreshNonce',),
                     sourceFilter: _sourceFilter,
                     query: FeedQuery(
                       kind: FeedKind.search,
@@ -305,7 +305,7 @@ class _Chip extends StatelessWidget {
       borderRadius: BorderRadius.circular(Tk.radMd),
       child: Container(
         padding: const EdgeInsets.symmetric(
-            horizontal: Tk.md, vertical: Tk.sm),
+            horizontal: Tk.md, vertical: Tk.sm,),
         decoration: BoxDecoration(
           color: filled
               ? scheme.surfaceContainerHighest

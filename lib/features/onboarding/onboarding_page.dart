@@ -70,7 +70,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             // ── Top header bar: brand mark + step counter + skip ──
             Padding(
               padding: const EdgeInsets.fromLTRB(
-                  Tk.lg, Tk.lg, Tk.lg, Tk.md),
+                  Tk.lg, Tk.lg, Tk.lg, Tk.md,),
               child: Row(
                 children: [
                   Container(
@@ -93,7 +93,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                   const SizedBox(width: Tk.sm + 2),
                   Text('WOLWO  ::  SETUP',
                       style: Tk.label(scheme.onSurface)
-                          .copyWith(letterSpacing: 1.6)),
+                          .copyWith(letterSpacing: 1.6),),
                   const Spacer(),
                   Text(
                     '0${_step + 1} / 04 · ${stepLabels[_step]}',
@@ -115,7 +115,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                       end: Offset.zero,
                     ).animate(
                       CurvedAnimation(
-                          parent: anim, curve: Curves.easeOutCubic),
+                          parent: anim, curve: Curves.easeOutCubic,),
                     ),
                     child: child,
                   ),
@@ -139,7 +139,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(
-                  Tk.lg, Tk.md, Tk.lg, Tk.lg),
+                  Tk.lg, Tk.md, Tk.lg, Tk.lg,),
               child: Row(
                 children: [
                   if (_step > 0)
@@ -186,7 +186,7 @@ class _WelcomeStep extends StatelessWidget {
         // splash-style typographic intros (large mono title, tiny
         // ALL-CAPS eyebrow, hairline divider underneath).
         Text('A QUIET WALLPAPER BROWSER',
-            style: Tk.label(scheme.outline).copyWith(letterSpacing: 1.6)),
+            style: Tk.label(scheme.outline).copyWith(letterSpacing: 1.6),),
         const SizedBox(height: Tk.md),
         Text(
           'wolwo',
@@ -244,12 +244,12 @@ class _SpecRow extends StatelessWidget {
             width: 96,
             child: Text(k,
                 style: Tk.label(scheme.outline)
-                    .copyWith(letterSpacing: 1.4)),
+                    .copyWith(letterSpacing: 1.4),),
           ),
           Expanded(
             child: Text(v,
                 style: Tk.tiny(scheme.onSurface)
-                    .copyWith(letterSpacing: 0.8, fontSize: 11)),
+                    .copyWith(letterSpacing: 0.8, fontSize: 11),),
           ),
         ],
       ),
@@ -323,26 +323,26 @@ class _OnboardSourceTile extends StatelessWidget {
           children: [
             Text(source.displayName,
                 style: Tk.h3(scheme.onSurface)
-                    .copyWith(fontSize: 15, fontWeight: FontWeight.w500)),
+                    .copyWith(fontSize: 15, fontWeight: FontWeight.w500),),
             const SizedBox(width: Tk.sm),
             if (recommended)
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: Tk.sm, vertical: 2),
+                    horizontal: Tk.sm, vertical: 2,),
                 decoration: BoxDecoration(
                   border: Border.all(color: scheme.onSurface, width: 1),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text('RECOMMENDED',
                     style: Tk.tiny(scheme.onSurface)
-                        .copyWith(letterSpacing: 1)),
+                        .copyWith(letterSpacing: 1),),
               ),
           ],
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4),
           child: Text(source.description,
-              style: Tk.bodySmall(scheme.outline).copyWith(height: 1.4)),
+              style: Tk.bodySmall(scheme.outline).copyWith(height: 1.4),),
         ),
       ),
     );
@@ -376,7 +376,9 @@ class _KeysStepState extends ConsumerState<_KeysStep> {
 
   @override
   void dispose() {
-    for (final c in _ctrls.values) c.dispose();
+    for (final c in _ctrls.values) {
+      c.dispose();
+    }
     super.dispose();
   }
 
@@ -387,14 +389,14 @@ class _KeysStepState extends ConsumerState<_KeysStep> {
       padding: const EdgeInsets.fromLTRB(Tk.lg, Tk.xl, Tk.lg, Tk.xl),
       children: [
         Text('OPTIONAL API KEYS',
-            style: Tk.label(scheme.outline).copyWith(letterSpacing: 1.6)),
+            style: Tk.label(scheme.outline).copyWith(letterSpacing: 1.6),),
         const SizedBox(height: Tk.md),
         Text('Bring your own keys',
             style: Tk.h1(scheme.onSurface).copyWith(
               fontSize: 28,
               fontWeight: FontWeight.w400,
               letterSpacing: -0.5,
-            )),
+            ),),
         const SizedBox(height: Tk.sm + 2),
         Text(
           'wolwo ships with shared default keys so the app works out of '
@@ -432,7 +434,7 @@ class _KeysStepState extends ConsumerState<_KeysStep> {
         ),
         const SizedBox(height: Tk.md),
         Text('Reddit needs no key \u2014 wolwo just sends a polite User-Agent.',
-            style: Tk.meta(scheme.outline)),
+            style: Tk.meta(scheme.outline),),
       ],
     );
   }
@@ -467,13 +469,13 @@ class _KeyField extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(label,
-                    style: Tk.h3(scheme.onSurface).copyWith(fontSize: 14)),
+                    style: Tk.h3(scheme.onSurface).copyWith(fontSize: 14),),
               ),
               GestureDetector(
                 onTap: () => launchUrl(Uri.parse(getKeyUrl),
-                    mode: LaunchMode.externalApplication),
+                    mode: LaunchMode.externalApplication,),
                 child: Text('GET KEY \u2192',
-                    style: Tk.label(scheme.onSurface)),
+                    style: Tk.label(scheme.onSurface),),
               ),
             ],
           ),
@@ -489,7 +491,7 @@ class _KeyField extends StatelessWidget {
               filled: true,
               fillColor: scheme.surfaceContainerHighest,
               contentPadding: const EdgeInsets.symmetric(
-                  horizontal: Tk.md, vertical: Tk.md),
+                  horizontal: Tk.md, vertical: Tk.md,),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(Tk.radMd),
                 borderSide:
@@ -525,17 +527,15 @@ class _PermissionsStep extends StatefulWidget {
 
 class _PermissionsStepState extends State<_PermissionsStep> {
   PermissionStatus? _photos;
-  PermissionStatus? _storage;
 
   Future<void> _request() async {
     // photos = Android 13+ READ_MEDIA_IMAGES / iOS Photos.
     // storage = legacy Android <13. Both are no-ops on web.
     final p = await Permission.photos.request();
-    final s = await Permission.storage.request();
+    await Permission.storage.request();
     if (!mounted) return;
     setState(() {
       _photos = p;
-      _storage = s;
     });
   }
 
@@ -546,14 +546,14 @@ class _PermissionsStepState extends State<_PermissionsStep> {
       padding: const EdgeInsets.fromLTRB(Tk.lg, Tk.xl, Tk.lg, Tk.xl),
       children: [
         Text('PERMISSIONS',
-            style: Tk.label(scheme.outline).copyWith(letterSpacing: 1.6)),
+            style: Tk.label(scheme.outline).copyWith(letterSpacing: 1.6),),
         const SizedBox(height: Tk.md),
         Text('Last thing',
             style: Tk.h1(scheme.onSurface).copyWith(
               fontSize: 28,
               fontWeight: FontWeight.w400,
               letterSpacing: -0.5,
-            )),
+            ),),
         const SizedBox(height: Tk.sm + 2),
         Text(
           'wolwo needs gallery access to save wallpapers you download. '
@@ -571,17 +571,17 @@ class _PermissionsStepState extends State<_PermissionsStep> {
               Row(
                 children: [
                   Icon(Icons.photo_library_outlined,
-                      size: 20, color: scheme.onSurface),
+                      size: 20, color: scheme.onSurface,),
                   const SizedBox(width: Tk.sm),
                   Text('Photos / gallery',
                       style: Tk.h3(scheme.onSurface)
-                          .copyWith(fontSize: 14)),
+                          .copyWith(fontSize: 14),),
                   const Spacer(),
                   if (_photos != null)
                     Text(_photos!.isGranted ? 'GRANTED' : 'DENIED',
                         style: Tk.label(_photos!.isGranted
                             ? scheme.onSurface
-                            : scheme.outline)),
+                            : scheme.outline,),),
                 ],
               ),
               const SizedBox(height: Tk.sm),
@@ -676,7 +676,7 @@ class _GhostBtn extends StatelessWidget {
       borderRadius: BorderRadius.circular(Tk.radMd),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: Tk.md, vertical: Tk.sm + 2),
+            horizontal: Tk.md, vertical: Tk.sm + 2,),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -684,7 +684,7 @@ class _GhostBtn extends StatelessWidget {
             const SizedBox(width: Tk.xs + 2),
             Text(label,
                 style: Tk.label(scheme.outline)
-                    .copyWith(letterSpacing: 1.4)),
+                    .copyWith(letterSpacing: 1.4),),
           ],
         ),
       ),
@@ -713,10 +713,10 @@ class _PrimaryBtn extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(label,
-                  style: Tk.label(scheme.surface).copyWith(letterSpacing: 1.4)),
+                  style: Tk.label(scheme.surface).copyWith(letterSpacing: 1.4),),
               const SizedBox(width: Tk.sm),
               Icon(Icons.arrow_forward_rounded,
-                  size: 16, color: scheme.surface),
+                  size: 16, color: scheme.surface,),
             ],
           ),
         ),
@@ -745,7 +745,7 @@ class _SecondaryBtn extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: Tk.lg, vertical: Tk.sm),
       ),
       child: Text(label,
-          style: Tk.label(scheme.onSurface).copyWith(letterSpacing: 1.2)),
+          style: Tk.label(scheme.onSurface).copyWith(letterSpacing: 1.2),),
     );
   }
 }

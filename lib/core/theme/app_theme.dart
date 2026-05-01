@@ -87,9 +87,9 @@ class AppTheme {
         thumbColor: WidgetStateProperty.resolveWith((s) =>
             s.contains(WidgetState.selected)
                 ? _surfaceLightElev
-                : _mutedLight),
+                : _mutedLight,),
         trackColor: WidgetStateProperty.resolveWith((s) =>
-            s.contains(WidgetState.selected) ? _inkLight : _surfaceLight),
+            s.contains(WidgetState.selected) ? _inkLight : _surfaceLight,),
         trackOutlineColor:
             const WidgetStatePropertyAll(_hairlineLight),
         trackOutlineWidth: const WidgetStatePropertyAll(1),
@@ -98,7 +98,7 @@ class AppTheme {
       // Same hairline language for checkboxes (used in source filter sheet).
       checkboxTheme: CheckboxThemeData(
         fillColor: WidgetStateProperty.resolveWith((s) =>
-            s.contains(WidgetState.selected) ? _inkLight : Colors.transparent),
+            s.contains(WidgetState.selected) ? _inkLight : Colors.transparent,),
         checkColor: const WidgetStatePropertyAll(_surfaceLightElev),
         side: const BorderSide(color: _mutedLight, width: 1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),

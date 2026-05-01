@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -40,7 +39,6 @@ class WallpaperGrid extends ConsumerStatefulWidget {
 }
 
 class _WallpaperGridState extends ConsumerState<WallpaperGrid> {
-  static const _pageSize = 24;
   late final PagingController<int, Wallpaper> _controller;
   late String _seed;
   // Set just before a manual refresh so the next page request bypasses
@@ -179,7 +177,7 @@ class _Empty extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.image_search_outlined,
-                size: 32, color: scheme.outline),
+                size: 32, color: scheme.outline,),
             const SizedBox(height: 12),
             Text(
               'No wallpapers here yet.',
@@ -216,10 +214,10 @@ class _ErrorView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.cloud_off_outlined,
-                size: 32, color: scheme.outline),
+                size: 32, color: scheme.outline,),
             const SizedBox(height: 12),
             Text('Could not load wallpapers.',
-                style: TextStyle(color: scheme.onSurface)),
+                style: TextStyle(color: scheme.onSurface),),
             const SizedBox(height: 4),
             Text(
               'Check your connection and try again.',
@@ -227,7 +225,7 @@ class _ErrorView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             FilledButton.tonal(
-                onPressed: onRetry, child: const Text('Retry')),
+                onPressed: onRetry, child: const Text('Retry'),),
           ],
         ),
       ),

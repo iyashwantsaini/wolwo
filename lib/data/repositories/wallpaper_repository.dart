@@ -259,7 +259,7 @@ class WallpaperRepository {
     final rotation =
         ((query.seed?.hashCode ?? page.hashCode).abs()) % active.length;
     final order = List<int>.generate(
-        active.length, (i) => (i + rotation) % active.length);
+        active.length, (i) => (i + rotation) % active.length,);
 
     // Anti-clump interleave: instead of taking `weightFor` items from
     // one source back-to-back (which puts two NASAs in adjacent grid

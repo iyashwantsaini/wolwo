@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import '../models/feed_query.dart';
 import '../models/wallpaper.dart';
 
@@ -32,7 +30,6 @@ enum AppCategory {
   final String label;
 }
 
-@immutable
 abstract class WallpaperSource {
   const WallpaperSource();
 

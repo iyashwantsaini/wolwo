@@ -13,11 +13,11 @@ class AppShell extends StatelessWidget {
     _Tab('/', Icons.grid_view_outlined, Icons.grid_view_rounded, 'Home'),
     _Tab('/search', Icons.search_outlined, Icons.search_rounded, 'Search'),
     _Tab('/categories', Icons.explore_outlined, Icons.explore_rounded,
-        'Browse'),
+        'Browse',),
     _Tab('/favorites', Icons.bookmark_outline_rounded, Icons.bookmark_rounded,
-        'Saved'),
+        'Saved',),
     _Tab('/settings', Icons.settings_outlined, Icons.settings_rounded,
-        'Settings'),
+        'Settings',),
   ];
 
   int _indexFor(String location) {
@@ -109,7 +109,7 @@ class _TabItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(selected ? tab.selectedIcon : tab.icon,
-                    size: 20, color: fg),
+                    size: 20, color: fg,),
                 const SizedBox(height: Tk.xs),
                 Text(
                   tab.label.toUpperCase(),

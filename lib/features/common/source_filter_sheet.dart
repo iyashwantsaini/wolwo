@@ -64,7 +64,7 @@ Future<Set<String>?> showSourceFilterSheet({
                 ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(
-                    Tk.lg, Tk.sm, Tk.lg, Tk.md),
+                    Tk.lg, Tk.sm, Tk.lg, Tk.md,),
                 child: Row(
                   children: [
                     Expanded(
@@ -92,7 +92,7 @@ Future<Set<String>?> showSourceFilterSheet({
             ],
           ),
         );
-      });
+      },);
     },
   );
 }

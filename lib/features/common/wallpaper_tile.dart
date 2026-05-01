@@ -51,7 +51,7 @@ class _WallpaperTileState extends State<WallpaperTile> {
   Widget build(BuildContext context) {
     final placeholder = widget.wallpaper.colorHex != null
         ? Color(int.parse(
-            widget.wallpaper.colorHex!.replaceFirst('#', '0xFF')))
+            widget.wallpaper.colorHex!.replaceFirst('#', '0xFF'),),)
         : Theme.of(context).colorScheme.surfaceContainerHighest;
 
     // If every fallback proxy failed, hide the tile entirely so the grid

@@ -201,7 +201,7 @@ class AppSettings extends ChangeNotifier {
       decoded.forEach((k, v) {
         if (k is String && v is Map) {
           final entry = CategoryCoverCache.tryFromJson(
-              Map<String, dynamic>.from(v));
+              Map<String, dynamic>.from(v),);
           if (entry != null) out[k] = entry;
         }
       });

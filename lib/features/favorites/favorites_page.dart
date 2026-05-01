@@ -37,10 +37,10 @@ class FavoritesPage extends ConsumerWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.bookmark_outline_rounded,
-                              size: 36, color: scheme.outline),
+                              size: 36, color: scheme.outline,),
                           const SizedBox(height: Tk.md),
                           Text('NOTHING SAVED YET',
-                              style: Tk.label(scheme.outline)),
+                              style: Tk.label(scheme.outline),),
                           const SizedBox(height: Tk.sm),
                           Text(
                             'Tap the heart on any wallpaper to save it here.',
@@ -64,7 +64,7 @@ class FavoritesPage extends ConsumerWidget {
                               ),
                             ),
                             child: Text('Browse wallpapers',
-                                style: Tk.bodySmall(scheme.onSurface)),
+                                style: Tk.bodySmall(scheme.onSurface),),
                           ),
                         ],
                       ),
@@ -72,7 +72,7 @@ class FavoritesPage extends ConsumerWidget {
                   )
                 : MasonryGridView.count(
                     padding: const EdgeInsets.fromLTRB(
-                        Tk.md, Tk.sm, Tk.md, Tk.lg),
+                        Tk.md, Tk.sm, Tk.md, Tk.lg,),
                     crossAxisCount: 2,
                     mainAxisSpacing: Tk.sm + 2,
                     crossAxisSpacing: Tk.sm + 2,

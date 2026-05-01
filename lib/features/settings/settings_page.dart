@@ -93,21 +93,21 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   icon: const Icon(Icons.brightness_auto_outlined, size: 16),
                   label: Text('AUTO',
                       style: Tk.tiny(scheme.onSurface)
-                          .copyWith(fontSize: 11, letterSpacing: 1.0)),
+                          .copyWith(fontSize: 11, letterSpacing: 1.0),),
                 ),
                 ButtonSegment(
                   value: ThemeMode.light,
                   icon: const Icon(Icons.light_mode_outlined, size: 16),
                   label: Text('LIGHT',
                       style: Tk.tiny(scheme.onSurface)
-                          .copyWith(fontSize: 11, letterSpacing: 1.0)),
+                          .copyWith(fontSize: 11, letterSpacing: 1.0),),
                 ),
                 ButtonSegment(
                   value: ThemeMode.dark,
                   icon: const Icon(Icons.dark_mode_outlined, size: 16),
                   label: Text('DARK',
                       style: Tk.tiny(scheme.onSurface)
-                          .copyWith(fontSize: 11, letterSpacing: 1.0)),
+                          .copyWith(fontSize: 11, letterSpacing: 1.0),),
                 ),
               ],
               selected: {settings.themeMode},
@@ -181,7 +181,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             const SizedBox(height: Tk.md),
             Center(
               child: Text('WOLWO  ::  v$_version',
-                  style: Tk.tiny(scheme.outline).copyWith(letterSpacing: 1.5)),
+                  style: Tk.tiny(scheme.outline).copyWith(letterSpacing: 1.5),),
             ),
             const SizedBox(height: Tk.lg),
           ],
@@ -246,7 +246,7 @@ class _SettingRow extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: Tk.lg, vertical: Tk.md),
+            horizontal: Tk.lg, vertical: Tk.md,),
         child: Row(
           children: [
             Icon(icon, color: scheme.onSurface, size: 18),
@@ -264,7 +264,7 @@ class _SettingRow extends StatelessWidget {
               ),
             ),
             Icon(Icons.chevron_right_rounded,
-                color: scheme.outline, size: 18),
+                color: scheme.outline, size: 18,),
           ],
         ),
       ),

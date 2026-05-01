@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-import '../../core/config/api_keys.dart';
 import '../../core/config/app_config.dart';
 import '../../core/network/dio_factory.dart';
 import '../models/feed_query.dart';
@@ -130,7 +129,7 @@ class NasaSource extends WallpaperSource {
     final probe = await dio.get('/search', queryParameters: {
       ...params,
       'page': 1,
-    });
+    },);
     final probeCollection = probe.data['collection'] as Map<String, dynamic>;
     final probeMeta =
         (probeCollection['metadata'] as Map?)?.cast<String, dynamic>();
@@ -152,7 +151,7 @@ class NasaSource extends WallpaperSource {
     final res = effectivePage == 1
         ? probe
         : await dio.get('/search',
-            queryParameters: {...params, 'page': effectivePage});
+            queryParameters: {...params, 'page': effectivePage},);
     final collection = res.data['collection'] as Map<String, dynamic>;
     final items = (collection['items'] as List).cast<Map<String, dynamic>>();
 

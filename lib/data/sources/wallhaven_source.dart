@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
 import '../../core/config/api_keys.dart';
-import '../../core/config/app_config.dart';
 import '../../core/network/dio_factory.dart';
 import '../models/feed_query.dart';
 import '../models/wallpaper.dart';
@@ -28,7 +27,7 @@ class WallhavenSource extends WallpaperSource {
         }
         handler.next(options);
       },
-    ));
+    ),);
     _dio = dio;
     return dio;
   }

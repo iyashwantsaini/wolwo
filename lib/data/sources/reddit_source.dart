@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
 import '../../core/config/api_keys.dart';
-import '../../core/config/app_config.dart';
 import '../../core/network/dio_factory.dart';
 import '../models/feed_query.dart';
 import '../models/wallpaper.dart';
@@ -11,7 +10,7 @@ import 'wallpaper_source.dart';
 /// No API key required; just a custom User-Agent string per Reddit ToS.
 ///
 /// IMPORTANT: Content is user-submitted. Many images may be copyrighted.
-/// We surface this clearly in the UI ("from r/<subreddit>", "Report" button).
+/// We surface this clearly in the UI ("from r/[subreddit]", "Report" button).
 class RedditSource extends WallpaperSource {
   RedditSource();
 
@@ -26,7 +25,7 @@ class RedditSource extends WallpaperSource {
         options.headers['User-Agent'] = ApiKeys.redditUserAgent();
         handler.next(options);
       },
-    ));
+    ),);
     _dio = dio;
     return dio;
   }

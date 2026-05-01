@@ -82,7 +82,7 @@ final _categoryPreviewProvider =
     cat.name,
     thumbUrl: picked.thumbUrl,
     fullUrl: picked.fullUrl,
-  ));
+  ),);
   return picked;
 });
 
@@ -310,7 +310,7 @@ class _CategoryCard extends ConsumerWidget {
                   child: Text(
                     label,
                     style: Tk.h2(
-                        wp != null ? Colors.white : scheme.onSurface),
+                        wp != null ? Colors.white : scheme.onSurface,),
                   ),
                 ),
               ),
@@ -400,7 +400,7 @@ class _ColorSwatch extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.white.withValues(
-                              alpha: isLight ? 0.35 : 0.18),
+                              alpha: isLight ? 0.35 : 0.18,),
                           Colors.white.withValues(alpha: 0.0),
                         ],
                       ),
@@ -476,7 +476,7 @@ class _FeedPageState extends ConsumerState<_FeedPage> {
         backgroundColor: Colors.transparent,
         scrolledUnderElevation: 0,
         title: Text(widget.title.toUpperCase(),
-            style: Tk.label(scheme.onSurface).copyWith(fontSize: 11)),
+            style: Tk.label(scheme.onSurface).copyWith(fontSize: 11),),
         actions: [
           if (enabled.length > 1)
             Padding(
@@ -514,7 +514,7 @@ class _FeedPageState extends ConsumerState<_FeedPage> {
       ),
       body: WallpaperGrid(
         key: ValueKey(
-            'feed-${widget.query.cacheKey}-${_sourceFilter == null ? "all" : (_sourceFilter!.toList()..sort()).join(",")}-$_nonce'),
+            'feed-${widget.query.cacheKey}-${_sourceFilter == null ? "all" : (_sourceFilter!.toList()..sort()).join(",")}-$_nonce',),
         sourceFilter: _sourceFilter,
         query: q,
       ),

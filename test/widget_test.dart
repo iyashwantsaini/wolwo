@@ -5,16 +5,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wolwo/app/app.dart';
 import 'package:wolwo/app/providers.dart';
+import 'package:wolwo/data/local/app_settings.dart';
 
 void main() {
   testWidgets('App boots without exceptions', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
+    final settings = AppSettings(prefs);
 
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           sharedPreferencesProvider.overrideWithValue(prefs),
+          appSettingsInstanceProvider.overrideWithValue(settings),
         ],
         child: const WolwoApp(),
       ),

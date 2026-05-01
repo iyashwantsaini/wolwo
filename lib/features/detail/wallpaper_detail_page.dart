@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:async_wallpaper/async_wallpaper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -39,8 +38,6 @@ class _T {
   static const sm = 8.0;
   static const md = 12.0;
   static const lg = 16.0;
-  static const xl = 24.0;
-  static const xxl = 32.0;
 
   static TextStyle mono({
     required double size,
@@ -157,7 +154,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                   ? 'Wallpaper applied'
                   : 'Failed: ${result.error?.message ?? 'unknown error'}',
             ),
-          ));
+          ),);
         }
         return;
       }
@@ -175,7 +172,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                 ? 'Wallpaper applied'
                 : 'Failed: ${result.error?.message ?? 'unknown error'}',
           ),
-        ));
+        ),);
       }
     } catch (e) {
       if (mounted) {
@@ -243,8 +240,11 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
     // Build a fresh matrix that scales around the screen centre. Resetting
     // from identity each time avoids drift accumulating in the translation.
     final m = Matrix4.identity()
+      // ignore: deprecated_member_use
       ..translate(cx, cy)
+      // ignore: deprecated_member_use
       ..scale(newScale)
+      // ignore: deprecated_member_use
       ..translate(-cx, -cy);
     _animateTo(m);
     if (_showHint) setState(() => _showHint = false);
@@ -268,7 +268,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Opened full image — use your browser to save it.'),
-          ));
+          ),);
         }
         return;
       }
@@ -276,7 +276,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(ok == true ? 'Saved to gallery' : 'Save failed'),
-        ));
+        ),);
       }
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -302,7 +302,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(_T.lg, 0, _T.lg, _T.sm),
               child: Text('SET WALLPAPER',
-                  style: _T.metaLabel(scheme.outline)),
+                  style: _T.metaLabel(scheme.outline),),
             ),
             _SheetRow(
               icon: Icons.home_outlined,
@@ -350,7 +350,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text('IMAGE DETAILS',
-                  style: _T.metaLabel(scheme.outline)),
+                  style: _T.metaLabel(scheme.outline),),
               const SizedBox(height: _T.md),
               _DetailRow(label: 'SOURCE', value: sourceName),
               if (w.author != null)
@@ -360,10 +360,10 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                   onTap: w.authorUrl == null
                       ? null
                       : () => launchUrl(Uri.parse(w.authorUrl!),
-                          mode: LaunchMode.externalApplication),
+                          mode: LaunchMode.externalApplication,),
                 ),
               _DetailRow(label: 'RESOLUTION', value: w.resolution),
-              if (w.is4k) _DetailRow(label: 'QUALITY', value: '4K · UHD'),
+              if (w.is4k) const _DetailRow(label: 'QUALITY', value: '4K · UHD'),
               if (w.license != null)
                 _DetailRow(label: 'LICENSE', value: w.license!),
               const SizedBox(height: _T.md),
@@ -372,7 +372,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                   icon: Icons.open_in_new_rounded,
                   label: 'Open original page',
                   onTap: () => launchUrl(Uri.parse(w.sourcePageUrl!),
-                      mode: LaunchMode.externalApplication),
+                      mode: LaunchMode.externalApplication,),
                 ),
               _SheetRow(
                 icon: Icons.flag_outlined,
@@ -540,7 +540,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(Icons.swipe_rounded,
-                              size: 14, color: scheme.onSurfaceVariant),
+                              size: 14, color: scheme.onSurfaceVariant,),
                           const SizedBox(width: _T.xs + 2),
                           Text(
                             'PINCH TO ZOOM · DRAG TO REPOSITION',
@@ -612,7 +612,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _MetaChip(text: source.displayName.toUpperCase(),
-                        scheme: scheme),
+                        scheme: scheme,),
                     if (w.is4k) ...[
                       const SizedBox(width: _T.xs + 2),
                       _MetaChip(text: '4K', scheme: scheme, accent: true),
@@ -650,7 +650,7 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                                'Apply is Android-only. Use Save to download.'),
+                                'Apply is Android-only. Use Save to download.',),
                           ),
                         );
                       }),
@@ -762,7 +762,7 @@ class _ViewerActions extends StatelessWidget {
           bottom: bottomInset + _T.lg,
           child: Container(
             padding: const EdgeInsets.symmetric(
-                horizontal: _T.xs + 2, vertical: _T.sm),
+                horizontal: _T.xs + 2, vertical: _T.sm,),
             decoration: BoxDecoration(
               color: scheme.surface.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(_T.md + 2),
@@ -901,7 +901,7 @@ class _ViewerButton extends StatelessWidget {
       child: Container(
         constraints: const BoxConstraints(minWidth: 64),
         padding: const EdgeInsets.symmetric(
-            horizontal: _T.md, vertical: _T.sm + 2),
+            horizontal: _T.md, vertical: _T.sm + 2,),
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(_T.md + 2),
@@ -1014,7 +1014,7 @@ class _ViewerToastState extends State<_ViewerToast>
                 color: Colors.transparent,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 9),
+                      horizontal: 16, vertical: 9,),
                   decoration: BoxDecoration(
                     color: const Color(0xFF111111),
                     borderRadius: BorderRadius.circular(999),
@@ -1146,7 +1146,7 @@ class _TagChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         child: Container(
           padding: const EdgeInsets.symmetric(
-              horizontal: _T.sm + 2, vertical: _T.xs),
+              horizontal: _T.sm + 2, vertical: _T.xs,),
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.55),
             borderRadius: BorderRadius.circular(999),
@@ -1224,7 +1224,7 @@ class _SheetRow extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: _T.lg, vertical: _T.md + 2),
+            horizontal: _T.lg, vertical: _T.md + 2,),
         child: Row(
           children: [
             Icon(icon, color: fg, size: 20),
@@ -1417,7 +1417,7 @@ class _ProgressiveImageState extends State<_ProgressiveImage> {
               child: Center(
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 6),
+                      horizontal: 12, vertical: 6,),
                   decoration: BoxDecoration(
                     color: Colors.black.withValues(alpha: 0.55),
                     borderRadius: BorderRadius.circular(999),
@@ -1426,13 +1426,13 @@ class _ProgressiveImageState extends State<_ProgressiveImage> {
                       width: 1,
                     ),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       SizedBox(
                           width: 14,
                           height: 14,
-                          child: AppLoader(label: '', compact: true)),
+                          child: AppLoader(label: '', compact: true),),
                       SizedBox(width: 8),
                       Text(
                         'LOADING HI-RES',

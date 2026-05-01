@@ -41,7 +41,7 @@ class PageHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(eyebrow.toUpperCase(),
-                    style: Tk.label(scheme.outline)),
+                    style: Tk.label(scheme.outline),),
                 const SizedBox(height: Tk.xs),
                 Text(title, style: Tk.h1(scheme.onSurface)),
                 if (subtitle != null) ...[
@@ -166,7 +166,7 @@ class StatusPill extends StatelessWidget {
         ),
       ),
       child: Text(text.toUpperCase(),
-          style: Tk.tiny(fg).copyWith(letterSpacing: 1.0)),
+          style: Tk.tiny(fg).copyWith(letterSpacing: 1.0),),
     );
   }
 }

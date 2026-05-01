@@ -127,7 +127,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           Expanded(
             child: WallpaperGrid(
               key: ValueKey(
-                  '${_tab.kind.name}-${_tab.category ?? "-"}-${_sourceFilter == null ? "all" : (_sourceFilter!.toList()..sort()).join(",")}-${settings.sfwOnly}-$_refreshNonce'),
+                  '${_tab.kind.name}-${_tab.category ?? "-"}-${_sourceFilter == null ? "all" : (_sourceFilter!.toList()..sort()).join(",")}-${settings.sfwOnly}-$_refreshNonce',),
               sourceFilter: _sourceFilter,
               query: FeedQuery(
                 kind: _tab.kind,
@@ -142,7 +142,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Future<void> _openSourceSheet(
-      BuildContext context, List<WallpaperSource> enabled) async {
+      BuildContext context, List<WallpaperSource> enabled,) async {
     final result = await showSourceFilterSheet(
       context: context,
       enabled: enabled,
@@ -213,7 +213,7 @@ class _KindPill extends StatelessWidget {
         duration: const Duration(milliseconds: 160),
         curve: Curves.easeOut,
         padding: const EdgeInsets.symmetric(
-            horizontal: Tk.md, vertical: Tk.sm),
+            horizontal: Tk.md, vertical: Tk.sm,),
         decoration: BoxDecoration(
           color: scheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(Tk.radMd),
@@ -279,7 +279,7 @@ class _EmptyNoSources extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.layers_clear_outlined,
-                  size: 36, color: scheme.outline),
+                  size: 36, color: scheme.outline,),
               const SizedBox(height: Tk.md),
               Text('NO SOURCES ENABLED', style: Tk.label(scheme.outline)),
               const SizedBox(height: Tk.sm),
@@ -302,7 +302,7 @@ class _EmptyNoSources extends StatelessWidget {
                   ),
                 ),
                 child: Text('Open Settings',
-                    style: Tk.bodySmall(scheme.onSurface)),
+                    style: Tk.bodySmall(scheme.onSurface),),
               ),
             ],
           ),
