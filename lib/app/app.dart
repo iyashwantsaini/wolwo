@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
-import '../core/theme/app_theme.dart';
 import 'providers.dart';
 import 'router.dart';
 
@@ -28,8 +28,14 @@ class _WolwoAppState extends ConsumerState<WolwoApp> {
     return MaterialApp.router(
       title: 'wolwo',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
+      // Adopt the wolwoloom design system. The package is the externalised
+      // version of the bespoke `AppTheme` that used to live in core/theme —
+      // same JetBrains-Mono / hairline / periwinkle language, but versioned
+      // and shared, so swapping individual widgets for their Wlm* peers
+      // (WlmCard, WlmAppBar, WlmListTile, WlmPrimaryButton, ...) just works
+      // without a separate styling pass.
+      theme: WlmTheme.light(),
+      darkTheme: WlmTheme.dark(),
       themeMode: settings.themeMode,
       routerConfig: _router,
     );

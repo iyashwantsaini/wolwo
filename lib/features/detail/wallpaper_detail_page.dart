@@ -15,6 +15,7 @@ import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
 import '../../app/providers.dart';
 import '../../core/net/image_cache_manager.dart';
@@ -367,6 +368,29 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
               if (w.is4k) const _DetailRow(label: 'QUALITY', value: '4K · UHD'),
               if (w.license != null)
                 _DetailRow(label: 'LICENSE', value: w.license!),
+              // Tags surface inside the info sheet (rather than floating
+              // over the wallpaper) so the editorial framing stays clean
+              // while still giving users a one-tap path into search.
+              if (w.tags.isNotEmpty) ...[
+                const SizedBox(height: _T.sm),
+                Text('TAGS', style: _T.metaLabel(scheme.outline)),
+                const SizedBox(height: _T.sm),
+                Wrap(
+                  spacing: _T.xs + 2,
+                  runSpacing: _T.xs + 2,
+                  children: [
+                    for (final tag in w.tags.take(12))
+                      WlmTag(
+                        label: '#${tag.toLowerCase()}',
+                        onTap: () {
+                          Navigator.pop(ctx);
+                          final q = Uri.encodeQueryComponent(tag);
+                          context.go('/search?q=$q');
+                        },
+                      ),
+                  ],
+                ),
+              ],
               const SizedBox(height: _T.md),
               if (w.sourcePageUrl != null)
                 _SheetRow(
@@ -568,37 +592,10 @@ class _WallpaperDetailPageState extends ConsumerState<WallpaperDetailPage> {
               ),
             ),
 
-          // ── Tag chips: tap to deep-link into search. ────────────────
-          // Only renders if the wallpaper carries tags. Limited to a
-          // handful so the row never crowds the action bar.
-          if (w.tags.isNotEmpty)
-            Positioned(
-              left: _T.md,
-              right: _T.md,
-              bottom: bottomInset + 96 + _T.sm + 34,
-              child: Center(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (final tag in w.tags.take(6))
-                        Padding(
-                          padding: const EdgeInsets.only(right: _T.xs + 2),
-                          child: _TagChip(
-                            text: tag,
-                            scheme: scheme,
-                            onTap: () {
-                              final q = Uri.encodeQueryComponent(tag);
-                              context.go('/search?q=$q');
-                            },
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+          // ── Tags moved into the info bottom sheet (alongside the
+          //    page link / report rows) so they no longer compete with
+          //    the wallpaper for visual real-estate. See `_showInfoSheet`
+          //    below for the in-sheet rendering.
 
           // ── Tiny caption pinned just above the action row. ──────────
           // Wrapped in a single dark pill so the text remains legible no
@@ -1162,8 +1159,10 @@ class _MetaChip extends StatelessWidget {
   }
 }
 
-/// Small, tappable hashtag pill used on the detail page to deep-link
-/// into the search tab pre-seeded with the tag text.
+/// Small, tappable hashtag pill that used to float over the wallpaper.
+/// Replaced by `WlmTag` inside the info bottom sheet — kept here only as
+/// a reference point for the migration; intentionally unreferenced.
+// ignore: unused_element
 class _TagChip extends StatelessWidget {
   const _TagChip({
     required this.text,
