@@ -24,7 +24,6 @@ import '../../core/net/network_image_with_fallback.dart';
 import '../../data/local/app_settings.dart';
 import '../../data/models/wallpaper.dart';
 import '../../data/sources/nasa_source.dart';
-import '../common/app_loader.dart';
 
 // ── Design tokens ────────────────────────────────────────────────────────────
 //
@@ -1364,6 +1363,12 @@ class _ProgressiveImageState extends State<_ProgressiveImage> {
     _stream?.removeListener(_listener);
     _stream = null;
     _provider = null;
+    // Demo / asset-bundled wallpapers don't go through the network path
+    // at all; just flip the ready flag so the visible layer fades in.
+    if (widget.fullUrl.startsWith('asset:')) {
+      if (!_fullReady) _fullReady = true;
+      return;
+    }
     if (ImageProxy.isBadHost(widget.fullUrl)) {
       if (!_fullReady) {
         _fullReady = true;
@@ -1418,11 +1423,11 @@ class _ProgressiveImageState extends State<_ProgressiveImage> {
 
             fadeIn: const Duration(milliseconds: 80),
             placeholder: (_) => const Center(
-              child: AppLoader(label: 'LOADING PREVIEW'),
+              child: WlmLoader(label: 'LOADING PREVIEW'),
             ),
           )
         else
-          const Center(child: AppLoader(label: 'LOADING WALLPAPER')),
+          const Center(child: WlmLoader(label: 'LOADING WALLPAPER')),
 
         // Top layer \u2014 full-resolution. Driven by the `_fullReady` flag
         // which is now flipped by an actual ImageStreamListener (see
@@ -1472,7 +1477,7 @@ class _ProgressiveImageState extends State<_ProgressiveImage> {
                       SizedBox(
                           width: 14,
                           height: 14,
-                          child: AppLoader(label: '', compact: true),),
+                          child: WlmLoader(label: '', compact: true),),
                       SizedBox(width: 8),
                       Text(
                         'LOADING HI-RES',

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
 import '../../app/providers.dart';
 import '../../core/net/network_image_with_fallback.dart';
@@ -11,7 +12,6 @@ import '../../core/theme/design_tokens.dart';
 import '../../data/models/feed_query.dart';
 import '../../data/models/wallpaper.dart';
 import '../../data/sources/wallpaper_source.dart';
-import '../common/page_header.dart';
 import '../common/source_filter_sheet.dart';
 import '../common/wallpaper_grid.dart';
 
@@ -145,19 +145,19 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
             parent: BouncingScrollPhysics(),
           ),
           children: [
-            PageHeader(
+            WlmPageHeader(
               eyebrow: 'discover',
               title: 'Browse',
               subtitle: 'Curated buckets across all enabled sources.',
               actions: [
-                HeaderIconBtn(
+                WlmHeaderIconButton(
                   icon: Icons.refresh_rounded,
                   tooltip: 'Refresh',
-                  onTap: _refresh,
+                  onPressed: _refresh,
                 ),
               ],
             ),
-            const SectionLabel('Categories'),
+            const WlmSectionLabel('Categories'),
             Padding(
               padding: const EdgeInsets.fromLTRB(Tk.lg, 0, Tk.lg, Tk.lg),
               child: GridView.count(
@@ -197,7 +197,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                 ],
               ),
             ),
-            const SectionLabel('Colors'),
+            const WlmSectionLabel('Colors'),
             Padding(
               padding: const EdgeInsets.fromLTRB(Tk.lg, 0, Tk.lg, Tk.xl),
               child: GridView.count(
@@ -481,11 +481,11 @@ class _FeedPageState extends ConsumerState<_FeedPage> {
           if (enabled.length > 1)
             Padding(
               padding: const EdgeInsets.only(right: Tk.sm),
-              child: HeaderIconBtn(
+              child: WlmHeaderIconButton(
                 icon: Icons.filter_list_rounded,
                 tooltip: 'Choose sources',
                 badge: _sourceFilter != null,
-                onTap: () async {
+                onPressed: () async {
                   final result = await showSourceFilterSheet(
                     context: context,
                     enabled: enabled,
@@ -505,9 +505,9 @@ class _FeedPageState extends ConsumerState<_FeedPage> {
           // across the app.
           Padding(
             padding: const EdgeInsets.only(right: Tk.md),
-            child: HeaderIconBtn(
+            child: WlmHeaderIconButton(
               icon: Icons.refresh_rounded,
-              onTap: _refresh,
+              onPressed: _refresh,
             ),
           ),
         ],

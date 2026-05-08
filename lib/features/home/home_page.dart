@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
 import '../../app/providers.dart';
 import '../../core/theme/design_tokens.dart';
 import '../../data/models/feed_query.dart';
 import '../../data/sources/wallpaper_source.dart';
-import '../common/page_header.dart';
 import '../common/source_filter_sheet.dart';
 import '../common/wallpaper_grid.dart';
 
@@ -84,15 +84,15 @@ class _HomePageState extends ConsumerState<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          PageHeader(
+          WlmPageHeader(
             eyebrow: 'wallpapers',
             title: 'wolwo',
             subtitle: activeSourceLabel,
             actions: [
-              HeaderIconBtn(
+              WlmHeaderIconButton(
                 icon: Icons.refresh_rounded,
                 tooltip: 'Refresh',
-                onTap: () {
+                onPressed: () {
                   // Drop the warm cache for the active feed query so the
                   // grid re-fetches from the network instead of replaying
                   // the same cached page after the nonce bump.
@@ -101,16 +101,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                 },
               ),
               if (enabled.length > 1)
-                HeaderIconBtn(
+                WlmHeaderIconButton(
                   icon: Icons.filter_list_rounded,
                   tooltip: 'Choose sources',
                   badge: _sourceFilter != null,
-                  onTap: () => _openSourceSheet(context, enabled),
+                  onPressed: () => _openSourceSheet(context, enabled),
                 ),
-              HeaderIconBtn(
+              WlmHeaderIconButton(
                 icon: Icons.info_outline_rounded,
                 tooltip: 'About',
-                onTap: () => context.push('/about'),
+                onPressed: () => context.push('/about'),
               ),
             ],
           ),
@@ -270,41 +270,18 @@ class _EmptyNoSources extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     return SafeArea(
       child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(Tk.xxl),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.layers_clear_outlined,
-                  size: 36, color: scheme.outline,),
-              const SizedBox(height: Tk.md),
-              Text('NO SOURCES ENABLED', style: Tk.label(scheme.outline)),
-              const SizedBox(height: Tk.sm),
-              Text(
-                'Turn on at least one wallpaper source in Settings to see images here.',
-                textAlign: TextAlign.center,
-                style: Tk.bodySmall(scheme.outline),
-              ),
-              const SizedBox(height: Tk.lg),
-              FilledButton.tonal(
-                onPressed: onOpenSettings,
-                style: FilledButton.styleFrom(
-                  backgroundColor: scheme.surfaceContainerHighest,
-                  foregroundColor: scheme.onSurface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Tk.radMd),
-                    side: BorderSide(
-                      color: scheme.outlineVariant.withValues(alpha: 0.30),
-                    ),
-                  ),
-                ),
-                child: Text('Open Settings',
-                    style: Tk.bodySmall(scheme.onSurface),),
-              ),
-            ],
+        child: WlmEmptyState(
+          eyebrow: 'no sources enabled',
+          title: 'Pick a source',
+          icon: Icons.layers_clear_outlined,
+          body:
+              'Turn on at least one wallpaper source in Settings to see images here.',
+          action: WlmSecondaryButton(
+            label: 'Open Settings',
+            uppercase: false,
+            onPressed: onOpenSettings,
           ),
         ),
       ),

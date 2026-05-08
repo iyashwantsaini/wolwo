@@ -1,5 +1,6 @@
 import '../models/feed_query.dart';
 import '../models/wallpaper.dart';
+import '../sources/demo_deck.dart';
 import '../sources/wallpaper_source.dart';
 
 /// Aggregates results from multiple [WallpaperSource]s. The UI talks to this,
@@ -114,6 +115,7 @@ class WallpaperRepository {
     int page = 1,
     bool forceRefresh = false,
   }) async {
+    if (DemoMode.enabled) return _demoPage(query, page);
     final src = sourceById(sourceId);
     if (src == null) {
       return const PagedResult(items: [], page: 1, hasMore: false);
@@ -150,6 +152,7 @@ class WallpaperRepository {
     int page = 1,
     bool forceRefresh = false,
   }) async {
+    if (DemoMode.enabled) return _demoPage(query, page);
     final activeAll = _sources
         .where((s) => enabledSourceIds.contains(s.id) && s.supports(query.kind))
         .toList();
@@ -302,6 +305,17 @@ class WallpaperRepository {
     _pageCache[key] = _CacheEntry(out, DateTime.now());
     _markShown(merged);
     return out;
+  }
+
+  /// Synthetic page used when [DemoMode.enabled] is true. Deterministic per
+  /// query+page so screenshots are reproducible.
+  PagedResult _demoPage(FeedQuery query, int page) {
+    final seed = query.cacheKey.hashCode ^ page;
+    return PagedResult(
+      items: DemoDeck.page(seed),
+      page: page,
+      hasMore: false,
+    );
   }
 }
 

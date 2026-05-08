@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../data/local/app_settings.dart';
 import '../data/local/favorites_store.dart';
 import '../data/repositories/wallpaper_repository.dart';
+import '../data/sources/demo_deck.dart';
 import '../data/sources/nasa_source.dart';
 import '../data/sources/pixabay_source.dart';
 import '../data/sources/reddit_source.dart';
@@ -42,6 +43,9 @@ final settingsProvider = ChangeNotifierProvider<AppSettings>((ref) {
       .where((s) => s.enabledByDefault)
       .map((s) => s.id);
   settings.initDefaultsIfEmptySync(defaults);
+  // Mirror persisted demo flag into the process-wide gate the
+  // repository checks on every fetch.
+  DemoMode.enabled = settings.demoMode;
   return settings;
 });
 

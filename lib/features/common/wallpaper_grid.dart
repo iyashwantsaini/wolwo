@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
 import '../../app/providers.dart';
+import '../../core/theme/design_tokens.dart';
 import '../../data/models/feed_query.dart';
 import '../../data/models/wallpaper.dart';
-import 'app_loader.dart';
 import 'quick_actions_sheet.dart';
 import 'wallpaper_tile.dart';
 
@@ -154,8 +155,11 @@ class _WallpaperGridState extends ConsumerState<WallpaperGrid> {
             onTap: () => context.push('/detail', extra: {'wallpaper': w}),
             onLongPress: () => showWallpaperQuickActions(context, ref, w),
           ),
-          firstPageProgressIndicatorBuilder: (_) => const GridSkeleton(),
-          newPageProgressIndicatorBuilder: (_) => const GridPageFooter(),
+          firstPageProgressIndicatorBuilder: (_) => const WlmGridSkeleton(label: 'FETCHING WALLPAPERS'),
+          newPageProgressIndicatorBuilder: (_) => const Padding(
+            padding: EdgeInsets.symmetric(vertical: Tk.lg),
+            child: WlmLoader(label: 'LOADING MORE', compact: true),
+          ),
           noItemsFoundIndicatorBuilder: (_) => const _Empty(),
           firstPageErrorIndicatorBuilder: (_) =>
               _ErrorView(onRetry: () => _controller.refresh()),
@@ -169,34 +173,12 @@ class _Empty extends StatelessWidget {
   const _Empty();
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(48),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.image_search_outlined,
-                size: 32, color: scheme.outline,),
-            const SizedBox(height: 12),
-            Text(
-              'No wallpapers here yet.',
-              style: TextStyle(color: scheme.onSurface),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Try a different category, broaden your search,\n'
-              'or enable more sources in Settings.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: scheme.outline,
-                fontSize: 12,
-                height: 1.5,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return const WlmEmptyState(
+      eyebrow: 'no results',
+      title: 'No wallpapers here yet',
+      icon: Icons.image_search_outlined,
+      body:
+          'Try a different category, broaden your search, or enable more sources in Settings.',
     );
   }
 }
@@ -206,29 +188,11 @@ class _ErrorView extends StatelessWidget {
   final VoidCallback onRetry;
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.cloud_off_outlined,
-                size: 32, color: scheme.outline,),
-            const SizedBox(height: 12),
-            Text('Could not load wallpapers.',
-                style: TextStyle(color: scheme.onSurface),),
-            const SizedBox(height: 4),
-            Text(
-              'Check your connection and try again.',
-              style: TextStyle(color: scheme.outline, fontSize: 12),
-            ),
-            const SizedBox(height: 16),
-            FilledButton.tonal(
-                onPressed: onRetry, child: const Text('Retry'),),
-          ],
-        ),
-      ),
+    return WlmErrorState(
+      title: 'Could not load wallpapers',
+      body: 'Check your connection and try again.',
+      onRetry: onRetry,
+      retryLabel: 'RETRY',
     );
   }
 }

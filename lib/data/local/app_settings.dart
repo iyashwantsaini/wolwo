@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:convert';
 
+import '../sources/demo_deck.dart';
+
 /// Wallpaper-detail action layout. Cycle order is preserved:
 /// `bar` → `dock` → `compact` → `bar`.
 enum ViewerLayout { bar, compact }
@@ -75,6 +77,14 @@ class AppSettings extends ChangeNotifier {
   // entry is older than `_categoryCoverTtl` or on explicit pull-to-refresh.
   static const _kCategoryCovers = 'wolwo.settings.categoryCovers';
   static const Duration _categoryCoverTtl = Duration(minutes: 15);
+  // Demo mode: when true, every wallpaper grid is filled from a fixed
+  // bundled asset deck (`assets/screenshots/demo/`) and no network calls
+  // are made. Used by the screenshot capture recipe so README shots show
+  // real-looking content instead of "no wallpapers" empty states (which
+  // is what CORS produces in the browser dev build). Off by default;
+  // toggled from localStorage in the screenshot SKILL or via the hidden
+  // Settings → Storage tap if exposed.
+  static const _kDemoMode = 'wolwo.settings.demo';
 
   final SharedPreferences _prefs;
 
@@ -154,16 +164,26 @@ class AppSettings extends ChangeNotifier {
   }
 
   ThemeMode get themeMode {
-    final v = _prefs.getString(_kThemeMode) ?? 'system';
+    // Dark by default; users can change this from Settings.
+    final v = _prefs.getString(_kThemeMode) ?? 'dark';
     return switch (v) {
       'light' => ThemeMode.light,
-      'dark' => ThemeMode.dark,
-      _ => ThemeMode.system,
+      'system' => ThemeMode.system,
+      _ => ThemeMode.dark,
     };
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {
     await _prefs.setString(_kThemeMode, mode.name);
+    notifyListeners();
+  }
+
+  /// Demo mode replaces the live wallpaper feeds with a deterministic
+  /// bundled asset deck. Read at app boot to seed `DemoMode.enabled`.
+  bool get demoMode => _prefs.getBool(_kDemoMode) ?? false;
+  Future<void> setDemoMode(bool v) async {
+    await _prefs.setBool(_kDemoMode, v);
+    DemoMode.enabled = v;
     notifyListeners();
   }
 

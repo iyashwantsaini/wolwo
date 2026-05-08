@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
 import '../../app/providers.dart';
 import '../../core/config/api_keys.dart';
@@ -12,8 +11,13 @@ import '../../core/config/app_config.dart';
 import '../../core/net/image_cache_manager.dart';
 import '../../core/theme/design_tokens.dart';
 import '../../data/sources/wallpaper_source.dart';
-import '../common/page_header.dart';
 
+/// Settings tab.
+///
+/// Migrated to the wolwoloom design system: list rows are
+/// `WlmListTile`, switches are `WlmSwitchTile`, the theme picker is a
+/// `WlmSegmentedControl`, status badges are `WlmBadge`, and the API
+/// key editors use `WlmTextField` + `WlmPrimary/SecondaryButton`.
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
@@ -44,11 +48,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const PageHeader(
+          const WlmPageHeader(
             eyebrow: 'preferences',
             title: 'Settings',
           ),
-          const SectionLabel('Sources'),
+          const WlmSectionLabel('Sources'),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Tk.lg),
             child: Column(
@@ -57,74 +61,92 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               ],
             ),
           ),
-          const SectionLabel('Content'),
+          const WlmSectionLabel('Content'),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Tk.lg),
             child: Column(
               children: [
-                _SettingSwitch(
+                WlmSwitchTile(
                   title: 'SFW only',
                   subtitle: 'Filter out adult and suggestive content.',
                   value: settings.sfwOnly,
                   onChanged: settings.setSfwOnly,
                 ),
-                _SettingSwitch(
+                WlmSwitchTile(
                   title: 'Prefer 4K',
                   subtitle:
                       'Bias results toward 3840×2160 and above (uses more data).',
                   value: settings.preferFourK,
                   onChanged: settings.setPreferFourK,
                 ),
+                WlmSwitchTile(
+                  title: 'Demo mode',
+                  subtitle:
+                      'Replace live feeds with a bundled showcase deck. Useful for offline previews and screenshots.',
+                  value: settings.demoMode,
+                  onChanged: (v) async {
+                    await settings.setDemoMode(v);
+                    ref.read(repositoryProvider).clearCache();
+                  },
+                ),
               ],
             ),
           ),
-          const SectionLabel('Appearance'),
+          const WlmSectionLabel('Appearance'),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: Tk.lg, vertical: Tk.xs),
-            child: SegmentedButton<ThemeMode>(
-              style: SegmentedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Tk.radMd),
-                ),
-              ),
-              segments: [
-                ButtonSegment(
+            padding: const EdgeInsets.symmetric(
+                horizontal: Tk.lg, vertical: Tk.xs,),
+            child: WlmSegmentedControl<ThemeMode>(
+              expand: true,
+              segments: const [
+                WlmSegment(
                   value: ThemeMode.system,
-                  icon: const Icon(Icons.brightness_auto_outlined, size: 16),
-                  label: Text('AUTO',
-                      style: Tk.tiny(scheme.onSurface)
-                          .copyWith(fontSize: 11, letterSpacing: 1.0),),
+                  label: 'AUTO',
+                  icon: Icons.brightness_auto_outlined,
                 ),
-                ButtonSegment(
+                WlmSegment(
                   value: ThemeMode.light,
-                  icon: const Icon(Icons.light_mode_outlined, size: 16),
-                  label: Text('LIGHT',
-                      style: Tk.tiny(scheme.onSurface)
-                          .copyWith(fontSize: 11, letterSpacing: 1.0),),
+                  label: 'LIGHT',
+                  icon: Icons.light_mode_outlined,
                 ),
-                ButtonSegment(
+                WlmSegment(
                   value: ThemeMode.dark,
-                  icon: const Icon(Icons.dark_mode_outlined, size: 16),
-                  label: Text('DARK',
-                      style: Tk.tiny(scheme.onSurface)
-                          .copyWith(fontSize: 11, letterSpacing: 1.0),),
+                  label: 'DARK',
+                  icon: Icons.dark_mode_outlined,
                 ),
               ],
-              selected: {settings.themeMode},
-              onSelectionChanged: (s) => settings.setThemeMode(s.first),
+              value: settings.themeMode,
+              onChanged: settings.setThemeMode,
             ),
           ),
-          const SectionLabel('Storage'),
-          _SettingRow(
-            icon: Icons.cleaning_services_outlined,
+          const WlmSectionLabel('Storage'),
+          WlmListTile(
+            leading: Icon(Icons.cleaning_services_outlined,
+                color: scheme.onSurface, size: 18,),
             title: 'Clear image cache',
             subtitle:
                 'Frees disk space. Wallpapers will re-download as needed.',
+            trailing: Icon(Icons.chevron_right_rounded,
+                color: scheme.outline, size: 18,),
             onTap: () async {
-              await CachedNetworkImage.evictFromCache('');
-              await DefaultCacheManager().emptyCache();
-              await WolwoImageCacheManager.instance.emptyCache();
+              // 1. Empty the on-disk store backing every CachedNetworkImage
+              //    in the app (we route everything through this single
+              //    manager — see WolwoImageCacheManager).
+              //    On web this throws MissingPluginException because
+              //    flutter_cache_manager depends on path_provider; swallow
+              //    so the in-memory + repo wipes still run and the user
+              //    still gets the confirmation snackbar.
+              try {
+                await WolwoImageCacheManager.instance.emptyCache();
+              } catch (_) {}
+              // 2. Drop Flutter's in-memory decoded image cache so already
+              //    visible tiles release their bytes and re-decode from
+              //    the network on next paint.
+              PaintingBinding.instance.imageCache.clear();
+              PaintingBinding.instance.imageCache.clearLiveImages();
+              // 3. Wipe the merged-feed in-memory cache in the wallpaper
+              //    repository so the next grid hit refetches from sources.
+              ref.read(repositoryProvider).clearCache();
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Image cache cleared')),
@@ -132,10 +154,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               }
             },
           ),
-          _SettingRow(
-            icon: Icons.history_rounded,
+          WlmListTile(
+            leading: Icon(Icons.history_rounded,
+                color: scheme.onSurface, size: 18,),
             title: 'Clear search history',
             subtitle: 'Remove all your recent search queries.',
+            trailing: Icon(Icons.chevron_right_rounded,
+                color: scheme.outline, size: 18,),
             onTap: () async {
               await settings.clearSearchHistory();
               if (context.mounted) {
@@ -145,34 +170,46 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               }
             },
           ),
-          _SettingRow(
-            icon: Icons.restart_alt_rounded,
+          WlmListTile(
+            leading: Icon(Icons.restart_alt_rounded,
+                color: scheme.onSurface, size: 18,),
             title: 'Restart setup wizard',
             subtitle:
                 'Walk through source selection, API keys and permissions again.',
+            trailing: Icon(Icons.chevron_right_rounded,
+                color: scheme.outline, size: 18,),
             onTap: () async {
               await settings.setOnboardingDone(false);
               if (context.mounted) context.go('/welcome');
             },
           ),
-          const SectionLabel('About'),
-          _SettingRow(
-            icon: Icons.info_outline_rounded,
+          const WlmSectionLabel('About'),
+          WlmListTile(
+            leading: Icon(Icons.info_outline_rounded,
+                color: scheme.onSurface, size: 18,),
             title: 'About wolwo',
             subtitle: 'Sources, licenses, privacy.',
+            trailing: Icon(Icons.chevron_right_rounded,
+                color: scheme.outline, size: 18,),
             onTap: () => context.push('/about'),
           ),
-          _SettingRow(
-            icon: Icons.policy_outlined,
+          WlmListTile(
+            leading: Icon(Icons.policy_outlined,
+                color: scheme.onSurface, size: 18,),
             title: 'Privacy policy',
+            trailing: Icon(Icons.chevron_right_rounded,
+                color: scheme.outline, size: 18,),
             onTap: () => launchUrl(
               Uri.parse(AppConfig.privacyPolicyUrl),
               mode: LaunchMode.externalApplication,
             ),
           ),
-          _SettingRow(
-            icon: Icons.code_rounded,
+          WlmListTile(
+            leading: Icon(Icons.code_rounded,
+                color: scheme.onSurface, size: 18,),
             title: 'Open-source licenses',
+            trailing: Icon(Icons.chevron_right_rounded,
+                color: scheme.outline, size: 18,),
             onTap: () => showLicensePage(
               context: context,
               applicationName: 'wolwo',
@@ -183,92 +220,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             const SizedBox(height: Tk.md),
             Center(
               child: Text('WOLWO  ::  v$_version',
-                  style: Tk.tiny(scheme.outline).copyWith(letterSpacing: 1.5),),
+                  style: Tk.tiny(scheme.outline)
+                      .copyWith(letterSpacing: 1.5),),
             ),
             const SizedBox(height: Tk.lg),
           ],
         ],
-      ),
-    );
-  }
-}
-
-class _SettingSwitch extends StatelessWidget {
-  const _SettingSwitch({
-    required this.title,
-    required this.subtitle,
-    required this.value,
-    required this.onChanged,
-  });
-  final String title;
-  final String subtitle;
-  final bool value;
-  final ValueChanged<bool> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: Tk.xs),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: Tk.body(scheme.onSurface)),
-                const SizedBox(height: 2),
-                Text(subtitle, style: Tk.meta(scheme.outline)),
-              ],
-            ),
-          ),
-          Switch.adaptive(value: value, onChanged: onChanged),
-        ],
-      ),
-    );
-  }
-}
-
-class _SettingRow extends StatelessWidget {
-  const _SettingRow({
-    required this.icon,
-    required this.title,
-    required this.onTap,
-    this.subtitle,
-  });
-  final IconData icon;
-  final String title;
-  final String? subtitle;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: Tk.lg, vertical: Tk.md,),
-        child: Row(
-          children: [
-            Icon(icon, color: scheme.onSurface, size: 18),
-            const SizedBox(width: Tk.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: Tk.body(scheme.onSurface)),
-                  if (subtitle != null) ...[
-                    const SizedBox(height: 2),
-                    Text(subtitle!, style: Tk.meta(scheme.outline)),
-                  ],
-                ],
-              ),
-            ),
-            Icon(Icons.chevron_right_rounded,
-                color: scheme.outline, size: 18,),
-          ],
-        ),
       ),
     );
   }
@@ -342,7 +299,6 @@ class _SourceTileState extends ConsumerState<_SourceTile> {
   }
 
   bool _hasDefaultBaked(String id) {
-    // Returns true if the build-time --dart-define provided something usable.
     switch (id) {
       case 'wallhaven':
         return ApiKeys.wallhaven().isNotEmpty &&
@@ -350,7 +306,7 @@ class _SourceTileState extends ConsumerState<_SourceTile> {
       case 'pixabay':
         return ApiKeys.pixabay().isNotEmpty && _userKeyFor('pixabay').isEmpty;
       case 'nasa':
-        return _userKeyFor('nasa').isEmpty; // always has DEMO_KEY default
+        return _userKeyFor('nasa').isEmpty;
       case 'reddit':
         return _userKeyFor('reddit').isEmpty;
     }
@@ -360,98 +316,78 @@ class _SourceTileState extends ConsumerState<_SourceTile> {
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
+    final scheme = Theme.of(context).colorScheme;
     final s = widget.source;
     final enabled = settings.enabledSources.contains(s.id);
     final userKey = _userKeyFor(s.id);
     final usingDefault = _hasDefaultBaked(s.id);
     final missingPixabayKey = s.id == 'pixabay' && !ApiKeys.hasPixabay;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        children: [
-          SwitchListTile.adaptive(
-            contentPadding: const EdgeInsets.fromLTRB(16, 4, 8, 4),
-            title: Row(
-              children: [
-                Text(s.displayName),
-                const SizedBox(width: 8),
-                if (s.id == 'reddit')
-                  _Pill(
-                    text: 'no key needed',
-                    color: Theme.of(context).colorScheme.outline,
-                  )
-                else if (userKey.isNotEmpty)
-                  _Pill(
-                    text: 'your key',
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                else if (missingPixabayKey)
-                  _Pill(
-                    text: 'needs key',
-                    color: Theme.of(context).colorScheme.error,
-                  )
-                else if (usingDefault)
-                  _Pill(
-                    text: 'shared',
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-              ],
+    Widget? badge;
+    if (s.id == 'reddit') {
+      badge = WlmBadge(label: 'no key needed', color: scheme.outline);
+    } else if (userKey.isNotEmpty) {
+      badge = WlmBadge(label: 'your key', color: scheme.primary);
+    } else if (missingPixabayKey) {
+      badge = WlmBadge(label: 'needs key', color: scheme.error);
+    } else if (usingDefault) {
+      badge = WlmBadge(label: 'shared', color: scheme.outline);
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: WlmCard(
+        elevated: true,
+        padding: EdgeInsets.zero,
+        child: Column(
+          children: [
+            WlmSwitchTile(
+              title: s.displayName,
+              subtitle: s.description,
+              value: enabled,
+              trailingBadge: badge,
+              onChanged: (v) => settings.setSourceEnabled(s.id, v),
             ),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(
-                s.description,
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.outline),
+            InkWell(
+              onTap: () => setState(() => _expanded = !_expanded),
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(16),
               ),
-            ),
-            value: enabled,
-            onChanged: (v) => settings.setSourceEnabled(s.id, v),
-          ),
-          InkWell(
-            onTap: () => setState(() => _expanded = !_expanded),
-            borderRadius: const BorderRadius.vertical(
-              bottom: Radius.circular(16),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 8, 8),
-              child: Row(
-                children: [
-                  Icon(
-                    _expanded ? Icons.expand_less : Icons.expand_more,
-                    size: 18,
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    _expanded
-                        ? 'Hide'
-                        : (s.id == 'reddit'
-                            ? 'Customize User-Agent'
-                            : 'Use my own key'),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.outline,
-                      fontSize: 13,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 8, 8),
+                child: Row(
+                  children: [
+                    Icon(
+                      _expanded ? Icons.expand_less : Icons.expand_more,
+                      size: 18,
+                      color: scheme.outline,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 4),
+                    Text(
+                      _expanded
+                          ? 'Hide'
+                          : (s.id == 'reddit'
+                              ? 'Customize User-Agent'
+                              : 'Use my own key'),
+                      style: TextStyle(
+                        color: scheme.outline,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          if (_expanded)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: _KeyEditor(
-                sourceId: s.id,
-                meta: _meta(userKey),
+            if (_expanded)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: _KeyEditor(
+                  sourceId: s.id,
+                  meta: _meta(userKey),
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -484,31 +420,27 @@ class _KeyEditorState extends ConsumerState<_KeyEditor> {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextField(
+        WlmTextField(
           controller: _ctrl,
-          decoration: InputDecoration(
-            labelText: widget.meta.label,
-            hintText: widget.meta.hint,
-            border: const OutlineInputBorder(),
-            isDense: true,
-          ),
+          label: widget.meta.label,
+          hintText: widget.meta.hint,
           obscureText: widget.sourceId != 'reddit',
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: Tk.sm),
         Text(
           widget.meta.help,
-          style: TextStyle(
-            fontSize: 12,
-            color: Theme.of(context).colorScheme.outline,
-          ),
+          style: TextStyle(fontSize: 12, color: scheme.outline),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: Tk.md),
         Row(
           children: [
-            FilledButton.tonal(
+            WlmSecondaryButton(
+              label: 'Save',
+              uppercase: false,
               onPressed: () async {
                 await ref
                     .read(settingsProvider)
@@ -519,22 +451,23 @@ class _KeyEditorState extends ConsumerState<_KeyEditor> {
                   );
                 }
               },
-              child: const Text('Save'),
             ),
-            const SizedBox(width: 8),
-            TextButton(
+            const SizedBox(width: Tk.sm),
+            WlmGhostButton(
+              label: 'Clear',
+              uppercase: false,
               onPressed: () async {
                 _ctrl.clear();
                 await ref
                     .read(settingsProvider)
                     .setUserKey(widget.sourceId, '');
               },
-              child: const Text('Clear'),
             ),
             const Spacer(),
-            TextButton.icon(
-              icon: const Icon(Icons.open_in_new_rounded, size: 16),
-              label: const Text('Get key'),
+            WlmGhostButton(
+              label: 'Get key',
+              icon: Icons.open_in_new_rounded,
+              uppercase: false,
               onPressed: () => launchUrl(
                 Uri.parse(widget.meta.url),
                 mode: LaunchMode.externalApplication,
@@ -543,33 +476,6 @@ class _KeyEditorState extends ConsumerState<_KeyEditor> {
           ],
         ),
       ],
-    );
-  }
-}
-
-class _Pill extends StatelessWidget {
-  const _Pill({required this.text, required this.color});
-  final String text;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: color.withValues(alpha: 0.4), width: 0.5),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          color: color,
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.3,
-        ),
-      ),
     );
   }
 }

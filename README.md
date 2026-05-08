@@ -61,36 +61,55 @@ nice picture, applying it, and getting out of your way.**
 
 ## Screenshots
 
+wolwo ships with a dark theme by default — flip to **Light** or **Auto**
+in Settings → Appearance. Both modes share the same editorial
+typewriter language; only the surface changes.
+
 <table>
   <tr>
-    <td align="center" width="33%">
-      <img src="docs/screenshots/home.png" alt="Home / Trending" /><br/>
-      <sub><b>Home</b><br/>Trending feed, merged across all sources</sub>
-    </td>
-    <td align="center" width="33%">
-      <img src="docs/screenshots/browse.png" alt="Browse" /><br/>
-      <sub><b>Browse</b><br/>12 curated categories + colour wall</sub>
-    </td>
-    <td align="center" width="33%">
-      <img src="docs/screenshots/search.png" alt="Search" /><br/>
-      <sub><b>Search</b><br/>Recent + suggested topic chips</sub>
-    </td>
+    <th align="center" width="20%">Page</th>
+    <th align="center" width="40%">Dark <sub>(default)</sub></th>
+    <th align="center" width="40%">Light</th>
   </tr>
   <tr>
-    <td align="center" width="33%">
-      <img src="docs/screenshots/saved.png" alt="Saved" /><br/>
-      <sub><b>Saved</b><br/>Favourites stored locally, no account</sub>
-    </td>
-    <td align="center" width="33%">
-      <img src="docs/screenshots/settings.png" alt="Settings" /><br/>
-      <sub><b>Settings</b><br/>Sources, keys, theme, storage</sub>
-    </td>
-    <td align="center" width="33%">
-      <img src="docs/screenshots/detail.png" alt="Detail viewer" /><br/>
-      <sub><b>Detail</b><br/>Pinch-to-zoom viewer with apply/save/share</sub>
-    </td>
+    <td align="center"><b>Home</b><br/><sub>Trending feed merged across all sources</sub></td>
+    <td align="center"><img src="docs/screenshots/dark/home.png" alt="Home — dark" /></td>
+    <td align="center"><img src="docs/screenshots/light/home.png" alt="Home — light" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Browse</b><br/><sub>12 curated categories + colour wall</sub></td>
+    <td align="center"><img src="docs/screenshots/dark/browse.png" alt="Browse — dark" /></td>
+    <td align="center"><img src="docs/screenshots/light/browse.png" alt="Browse — light" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Search</b><br/><sub>Recent + suggested topic chips</sub></td>
+    <td align="center"><img src="docs/screenshots/dark/search.png" alt="Search — dark" /></td>
+    <td align="center"><img src="docs/screenshots/light/search.png" alt="Search — light" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Saved</b><br/><sub>Favourites stored locally, no account</sub></td>
+    <td align="center"><img src="docs/screenshots/dark/saved.png" alt="Saved — dark" /></td>
+    <td align="center"><img src="docs/screenshots/light/saved.png" alt="Saved — light" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Settings</b><br/><sub>Sources, keys, theme, storage</sub></td>
+    <td align="center"><img src="docs/screenshots/dark/settings.png" alt="Settings — dark" /></td>
+    <td align="center"><img src="docs/screenshots/light/settings.png" alt="Settings — light" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>About</b><br/><sub>Source attributions + licenses</sub></td>
+    <td align="center"><img src="docs/screenshots/dark/about.png" alt="About — dark" /></td>
+    <td align="center"><img src="docs/screenshots/light/about.png" alt="About — light" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Onboarding</b><br/><sub>First-run setup wizard</sub></td>
+    <td align="center"><img src="docs/screenshots/dark/onboarding.png" alt="Onboarding — dark" /></td>
+    <td align="center"><img src="docs/screenshots/light/onboarding.png" alt="Onboarding — light" /></td>
   </tr>
 </table>
+
+> Want to refresh these? See [`docs/screenshots/SKILL.md`](docs/screenshots/SKILL.md)
+> for the exact Playwright + Flutter web recipe.
 
 ---
 

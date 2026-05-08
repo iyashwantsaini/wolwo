@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
 import '../../core/theme/design_tokens.dart';
 import '../../data/sources/wallpaper_source.dart';
-import 'page_header.dart';
 
 /// Bottom sheet that lets the user narrow the active feed to a subset of
 /// the sources they have globally enabled in Settings. Returns the chosen
@@ -38,7 +38,7 @@ Future<Set<String>?> showSourceFilterSheet({
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SectionLabel('Show wallpapers from'),
+              const WlmSectionLabel('Show wallpapers from'),
               _SourceRow(
                 label: 'All sources',
                 detail: enabled.map((s) => s.displayName).join(' \u00b7 '),
@@ -75,16 +75,18 @@ Future<Set<String>?> showSourceFilterSheet({
                         style: Tk.meta(scheme.outline),
                       ),
                     ),
-                    TextButton(
+                    WlmGhostButton(
+                      label: 'Cancel',
+                      uppercase: false,
                       onPressed: () => Navigator.of(ctx).pop(null),
-                      child: const Text('Cancel'),
                     ),
                     const SizedBox(width: Tk.sm),
-                    FilledButton(
+                    WlmPrimaryButton(
+                      label: 'Apply',
+                      uppercase: false,
                       onPressed: draft.isEmpty
                           ? null
                           : () => Navigator.of(ctx).pop(draft),
-                      child: const Text('Apply'),
                     ),
                   ],
                 ),
@@ -111,53 +113,11 @@ class _SourceRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding:
-            const EdgeInsets.symmetric(horizontal: Tk.lg, vertical: Tk.md),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 18,
-              height: 18,
-              margin: const EdgeInsets.only(top: 2, right: Tk.md),
-              decoration: BoxDecoration(
-                color: selected
-                    ? scheme.primary.withValues(alpha: 0.18)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(
-                  color: selected
-                      ? scheme.primary
-                      : scheme.outlineVariant.withValues(alpha: 0.45),
-                  width: 1.5,
-                ),
-              ),
-              child: selected
-                  ? Icon(Icons.check_rounded, size: 14, color: scheme.primary)
-                  : null,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(label, style: Tk.body(scheme.onSurface)),
-                  const SizedBox(height: 2),
-                  Text(
-                    detail,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Tk.meta(scheme.outline),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+    return WlmCheckboxTile(
+      title: label,
+      subtitle: detail,
+      value: selected,
+      onChanged: (_) => onTap(),
     );
   }
 }

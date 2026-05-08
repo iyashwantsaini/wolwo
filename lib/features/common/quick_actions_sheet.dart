@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
 import '../../app/providers.dart';
 import '../../core/theme/design_tokens.dart';
@@ -141,22 +142,10 @@ class _ActionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return InkWell(
+    return WlmActionRow(
+      icon: icon,
+      label: label,
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: Tk.lg, vertical: Tk.md,),
-        child: Row(
-          children: [
-            Icon(icon, size: 20, color: scheme.onSurface),
-            const SizedBox(width: Tk.lg),
-            Expanded(
-              child: Text(label, style: Tk.body(scheme.onSurface)),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

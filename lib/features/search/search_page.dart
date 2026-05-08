@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wolwoloom/wolwoloom.dart';
 
 import '../../app/providers.dart';
 import '../../core/theme/design_tokens.dart';
 import '../../data/models/feed_query.dart';
-import '../common/page_header.dart';
 import '../common/source_filter_sheet.dart';
 import '../common/wallpaper_grid.dart';
 
@@ -76,7 +76,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     final settings = ref.watch(settingsProvider);
     final sources = ref.watch(sourcesProvider);
     final enabled =
@@ -104,26 +103,26 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     return SafeArea(
       child: Column(
         children: [
-          PageHeader(
+          WlmPageHeader(
             eyebrow: 'find',
             title: 'Search',
             subtitle: activeSourceLabel,
             actions: [
               if (_query.isNotEmpty)
-                HeaderIconBtn(
+                WlmHeaderIconButton(
                   icon: Icons.refresh_rounded,
                   tooltip: 'Refresh',
-                  onTap: () {
+                  onPressed: () {
                     ref.read(repositoryProvider).clearCache();
                     setState(() => _refreshNonce++);
                   },
                 ),
               if (enabled.length > 1)
-                HeaderIconBtn(
+                WlmHeaderIconButton(
                   icon: Icons.filter_list_rounded,
                   tooltip: 'Choose sources',
                   badge: _sourceFilter != null,
-                  onTap: () async {
+                  onPressed: () async {
                     final result = await showSourceFilterSheet(
                       context: context,
                       enabled: enabled,
@@ -141,61 +140,18 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(Tk.lg, Tk.sm, Tk.lg, Tk.sm),
-            child: Container(
-              decoration: BoxDecoration(
-                color: scheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(Tk.radMd),
-                border: Border.all(
-                  color: scheme.outlineVariant.withValues(alpha: 0.30),
-                  width: Tk.hairline,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(Tk.md, 0, Tk.sm, 0),
-                    child: Icon(Icons.search_rounded,
-                        color: scheme.outline, size: 18,),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: _ctrl,
-                      focusNode: _focus,
-                      style: Tk.body(scheme.onSurface),
-                      cursorColor: scheme.primary,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: Tk.md),
-                        border: InputBorder.none,
-                        hintText: 'Search wallpapers',
-                        hintStyle: Tk.body(scheme.outline),
-                      ),
-                      onSubmitted: (v) {
-                        _debounce?.cancel();
-                        final t = v.trim();
-                        setState(() => _query = t);
-                        if (t.isNotEmpty) {
-                          ref.read(settingsProvider).pushSearchQuery(t);
-                        }
-                      },
-                    ),
-                  ),
-                  if (_ctrl.text.isNotEmpty)
-                    InkWell(
-                      onTap: () {
-                        _ctrl.clear();
-                        setState(() => _query = '');
-                      },
-                      borderRadius: BorderRadius.circular(20),
-                      child: Padding(
-                        padding: const EdgeInsets.all(Tk.sm + 2),
-                        child: Icon(Icons.close_rounded,
-                            color: scheme.outline, size: 16,),
-                      ),
-                    ),
-                ],
-              ),
+            child: WlmSearchField(
+              controller: _ctrl,
+              focusNode: _focus,
+              hintText: 'Search wallpapers',
+              onSubmitted: (v) {
+                _debounce?.cancel();
+                final t = v.trim();
+                setState(() => _query = t);
+                if (t.isNotEmpty) {
+                  ref.read(settingsProvider).pushSearchQuery(t);
+                }
+              },
             ),
           ),
           Expanded(
@@ -298,30 +254,6 @@ class _Chip extends StatelessWidget {
   final bool filled;
 
   @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(Tk.radMd),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: Tk.md, vertical: Tk.sm,),
-        decoration: BoxDecoration(
-          color: filled
-              ? scheme.surfaceContainerHighest
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(Tk.radMd),
-          border: Border.all(
-            color: scheme.outlineVariant.withValues(alpha: 0.30),
-            width: Tk.hairline,
-          ),
-        ),
-        child: Text(
-          label.toUpperCase(),
-          style: Tk.tiny(scheme.onSurfaceVariant)
-              .copyWith(fontSize: 11, letterSpacing: 1.0),
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      WlmChip(label: label, onTap: onTap, filled: filled);
 }

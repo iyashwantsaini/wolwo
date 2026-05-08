@@ -69,6 +69,25 @@ class _NetworkImageWithFallbackState extends State<NetworkImageWithFallback> {
 
   @override
   Widget build(BuildContext context) {
+    // Demo / asset-bundled images. Used by the screenshot recipe so the
+    // grid renders real-looking content instead of "no wallpapers" empty
+    // states when running offline / in browser dev where CORS blocks
+    // every upstream API.
+    if (widget.url.startsWith('asset:')) {
+      // Strip the `asset:///` (or `asset://`) prefix to get the bundled
+      // path under `assets/`.
+      var rel = widget.url.replaceFirst(RegExp(r'^asset:/+'), '');
+      if (!rel.startsWith('assets/')) rel = 'assets/$rel';
+      return Image.asset(
+        rel,
+        fit: widget.fit,
+        alignment: widget.alignment,
+        gaplessPlayback: true,
+        errorBuilder: (ctx, _, __) =>
+            widget.placeholder?.call(ctx) ?? const SizedBox.shrink(),
+      );
+    }
+
     // Last-resort: native <img> via platform view. Always succeeds for
     // hosts that allow hot-linking (which Wallhaven and Reddit do).
     if (_useHtmlImg) {
